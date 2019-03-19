@@ -36,7 +36,7 @@
             android:text="View Tasks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/viewTasks" android:layout_marginTop="300dp"
+            android:id="@+id/viewTasksSubscriptions" android:layout_marginTop="300dp"
             app:layout_constraintTop_toBottomOf="@+id/password" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="40dp"/>
     <Button
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/viewTaskInstances"
-            app:layout_constraintTop_toTopOf="@+id/viewTasks" app:layout_constraintStart_toEndOf="@+id/viewTasks"
+            app:layout_constraintTop_toTopOf="@+id/viewTasksSubscriptions" app:layout_constraintStart_toEndOf="@+id/viewTasksSubscriptions"
             android:layout_marginStart="8dp"/>
 
 </android.support.constraint.ConstraintLayout>

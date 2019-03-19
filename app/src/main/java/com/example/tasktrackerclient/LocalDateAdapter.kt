@@ -1,4 +1,4 @@
-package com.example.namegame
+package com.example.tasktrackerclient
 
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader

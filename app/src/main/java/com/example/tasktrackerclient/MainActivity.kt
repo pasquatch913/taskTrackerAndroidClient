@@ -1,4 +1,4 @@
-package com.example.namegame
+package com.example.tasktrackerclient
 
 import android.content.Context
 import android.content.Intent
@@ -23,6 +23,11 @@ class MainActivity : AppCompatActivity() {
 
         viewTaskInstances.setOnClickListener {
             var intent = Intent("android.intent.action.ViewTaskInstances")
+            startActivity(intent)
+        }
+
+        viewTasksSubscriptions.setOnClickListener {
+            var intent = Intent("android.intent.action.ViewTaskSubscriptions")
             startActivity(intent)
         }
     }

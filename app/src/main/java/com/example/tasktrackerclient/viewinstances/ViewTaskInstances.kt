@@ -1,9 +1,12 @@
-package com.example.namegame
+package com.example.tasktrackerclient.viewinstances
 
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager
+import com.example.tasktrackerclient.LocalDateAdapter
+import com.example.tasktrackerclient.OneTimeTaskEntity
+import com.example.tasktrackerclient.R
 import com.google.gson.GsonBuilder
 
 import kotlinx.android.synthetic.main.activity_show_instances.*
@@ -28,7 +31,7 @@ class ViewTaskInstances : AppCompatActivity() {
         fetchOneTimeTasks()
 
         returnMain.setOnClickListener {
-
+            finish()
         }
     }
 
@@ -57,7 +60,8 @@ class ViewTaskInstances : AppCompatActivity() {
                 val taskList = gson.fromJson(stringReader, Array<OneTimeTaskEntity>::class.java).toList()
 
                 runOnUiThread {
-                    recyclerView_second.adapter = ViewTaskInstancesAdapter(taskList)
+                    recyclerView_second.adapter =
+                        ViewTaskInstancesAdapter(taskList)
                 }
             }
         })

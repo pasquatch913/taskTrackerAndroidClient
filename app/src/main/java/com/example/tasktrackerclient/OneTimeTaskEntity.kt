@@ -1,4 +1,4 @@
-package com.example.namegame
+package com.example.tasktrackerclient
 
 import java.time.LocalDate
 

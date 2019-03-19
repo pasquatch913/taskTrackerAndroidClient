@@ -1,4 +1,4 @@
-package com.example.namegame
+package com.example.tasktrackerclient
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

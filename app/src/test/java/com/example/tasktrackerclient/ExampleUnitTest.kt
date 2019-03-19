@@ -1,4 +1,4 @@
-package com.example.namegame
+package com.example.tasktrackerclient
 
 import org.junit.Test
 

@@ -11,7 +11,7 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.namegame"
+        applicationId "com.example.tasktrackerclient"
         minSdkVersion 26
         targetSdkVersion 28
         versionCode 1

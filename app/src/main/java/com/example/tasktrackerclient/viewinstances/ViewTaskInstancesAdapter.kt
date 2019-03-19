@@ -1,9 +1,12 @@
-package com.example.namegame
+package com.example.tasktrackerclient.viewinstances
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.task_row.view.*
+import com.example.tasktrackerclient.CustomViewHolder
+import com.example.tasktrackerclient.OneTimeTaskEntity
+import com.example.tasktrackerclient.R
+import kotlinx.android.synthetic.main.task_instance_row.view.*
 
 
 class ViewTaskInstancesAdapter(data: List<OneTimeTaskEntity>): RecyclerView.Adapter<CustomViewHolder>() {
@@ -16,7 +19,7 @@ class ViewTaskInstancesAdapter(data: List<OneTimeTaskEntity>): RecyclerView.Adap
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val cellForRow = layoutInflater.inflate(R.layout.task_row, parent, false)
+        val cellForRow = layoutInflater.inflate(R.layout.task_instance_row, parent, false)
         return CustomViewHolder(cellForRow)
     }
 

@@ -1,17 +1,17 @@
 package com.example.tasktrackerclient.viewinstances
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.example.tasktrackerclient.CustomViewHolder
 import com.example.tasktrackerclient.OneTimeTaskEntity
 import com.example.tasktrackerclient.R
-import kotlinx.android.synthetic.main.task_instance_row.view.*
 
+class ViewTaskInstancesAdapter(var data: List<OneTimeTaskEntity>,val context: Context, val clickListener: (View) -> Unit ) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-class ViewTaskInstancesAdapter(data: List<OneTimeTaskEntity>): RecyclerView.Adapter<CustomViewHolder>() {
-
-    var data = data
 
     override fun getItemCount(): Int {
         return data.count()
@@ -23,12 +23,8 @@ class ViewTaskInstancesAdapter(data: List<OneTimeTaskEntity>): RecyclerView.Adap
         return CustomViewHolder(cellForRow)
     }
 
-    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        val task = data[position]
-        holder.view.taskName.text = task.name
-        holder.view.taskDueDate.text = task.dueDate.toString()
-        holder.view.taskCompletions.text = task.completions.toString()
-        holder.view.taskPoints.text = task.weight.toString()
-
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as CustomViewHolder).bind(data[position], clickListener)
     }
+
 }

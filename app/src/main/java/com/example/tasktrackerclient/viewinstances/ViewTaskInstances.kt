@@ -5,23 +5,19 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.example.tasktrackerclient.LocalDateAdapter
-import com.example.tasktrackerclient.OneTimeTaskEntity
 import com.example.tasktrackerclient.R
-import com.example.tasktrackerclient.rest.RequestBuilder
-import com.google.gson.GsonBuilder
+import com.example.tasktrackerclient.rest.RestClient
 
 import kotlinx.android.synthetic.main.activity_show_instances.*
 import kotlinx.android.synthetic.main.content_show_instances.*
 import kotlinx.android.synthetic.main.task_instance_row.view.*
-import okhttp3.*
-import java.io.IOException
-import java.io.StringReader
-import java.time.LocalDate
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class ViewTaskInstances : AppCompatActivity() {
 
-    val requestBuilder = RequestBuilder(this)
+    var taskInstanceList = listOf<TaskInstanceEntity>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +26,7 @@ class ViewTaskInstances : AppCompatActivity() {
 
         recyclerView_second.layoutManager = LinearLayoutManager(this)
 
+//        fetchTaskInstances(this)
         fetchOneTimeTasks(this)
 
         returnMain.setOnClickListener {
@@ -37,57 +34,46 @@ class ViewTaskInstances : AppCompatActivity() {
         }
     }
 
+//    fun fetchTaskInstances(context: Context){
+//        var taskInstances = taskInstanceList
+//        // put all items from response on list
+//        return taskInstances
+//    }
+
+
     fun fetchOneTimeTasks(context: Context) {
-        val request = requestBuilder.getOneTimeTasksRequest()
-        val client = OkHttpClient()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                println("failed to execute request")
-                println("call: " + call)
-                println("exception" + e)
+        val service = RestClient(context).taskTrackerService
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = service.fetchOneTimeTasks().await()
+            runOnUiThread {
+                recyclerView_second.adapter =
+                    ViewTaskInstancesAdapter(response.body()!!, context, { view: View -> clickListener(view, context) })
             }
-
-            override fun onResponse(call: Call, response: Response) {
-                val body = response?.body()?.string() ?: ""
-                var stringReader: StringReader = StringReader(body)
-                println(body)
-
-                val gson = GsonBuilder()
-                    .registerTypeAdapter(LocalDate::class.java, LocalDateAdapter()).create()
-
-                val taskList = gson.fromJson(stringReader, Array<OneTimeTaskEntity>::class.java).toList()
-
-                runOnUiThread {
-                    recyclerView_second.adapter =
-                        ViewTaskInstancesAdapter(taskList, context, { view : View -> clickListener(view) })
-                }
-            }
-        })
+        }
     }
 
-    private fun clickListener(view: View) {
+    private fun clickListener(view: View, context: Context) {
         val data = view
         val currentCompletions = data.taskCompletions.text
         val newCompletions = (currentCompletions as String).toInt() + 1
-        val request = requestBuilder.incrementOneTimeTaskRequest(data.taskId.text.toString(), newCompletions)
-        val client = OkHttpClient()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                println("failed to execute request")
-                println("call: " + call)
-                println("exception" + e)
-            }
+        val service = RestClient(context).taskTrackerService
 
-            override fun onResponse(call: Call, response: Response) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = service.incrementOneTimeTask(data.taskId.text.toString().toInt(), newCompletions).await()
+            println(response)
+            if (response.isSuccessful) {
                 println(response.code())
                 if (response.code() == 202) {
                     runOnUiThread {
                         view.taskCompletions.text = newCompletions.toString()
                     }
-
                 }
             }
-        })
+            else {
+                println("failed to execute request")
+                println("call: " + response)
+            }
+        }
     }
 
 }

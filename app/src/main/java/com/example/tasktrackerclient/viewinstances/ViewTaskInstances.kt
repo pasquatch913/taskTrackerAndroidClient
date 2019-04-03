@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.tasktrackerclient.R
-import com.example.tasktrackerclient.rest.RestClient
+import com.example.tasktrackerclient.rest.TaskTrackerService
 
 import kotlinx.android.synthetic.main.activity_show_instances.*
 import kotlinx.android.synthetic.main.content_show_instances.*
@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 class ViewTaskInstances : AppCompatActivity() {
 
     var taskInstanceList = listOf<TaskInstanceEntity>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +43,7 @@ class ViewTaskInstances : AppCompatActivity() {
 
 
     fun fetchOneTimeTasks(context: Context) {
-        val service = RestClient(context).taskTrackerService
+        val service = TaskTrackerService(context)
         GlobalScope.launch(Dispatchers.Main) {
             val response = service.fetchOneTimeTasks().await()
             runOnUiThread {
@@ -56,7 +57,7 @@ class ViewTaskInstances : AppCompatActivity() {
         val data = view
         val currentCompletions = data.taskCompletions.text
         val newCompletions = (currentCompletions as String).toInt() + 1
-        val service = RestClient(context).taskTrackerService
+        val service = TaskTrackerService(context)
 
         GlobalScope.launch(Dispatchers.Main) {
             val response = service.incrementOneTimeTask(data.taskId.text.toString().toInt(), newCompletions).await()

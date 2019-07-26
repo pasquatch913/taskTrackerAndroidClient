@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.tasktrackerclient.CustomViewHolder
-import com.example.tasktrackerclient.OneTimeTaskEntity
 import com.example.tasktrackerclient.R
+import com.example.tasktrackerclient.TaskDTO
 
-class ViewTaskInstancesAdapter(var data: List<OneTimeTaskEntity>,val context: Context, val clickListener: (View) -> Unit ) :
+class ViewTaskInstancesAdapter(var data: List<TaskDTO>, val context: Context, val clickListener: (View) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 

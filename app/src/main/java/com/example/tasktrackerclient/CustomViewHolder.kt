@@ -6,7 +6,7 @@ import kotlinx.android.synthetic.main.task_instance_row.view.*
 
 class CustomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-    fun bind(task: OneTimeTaskEntity, clickListener: (View) -> Unit) {
+    fun bind(task: TaskDTO, clickListener: (View) -> Unit) {
         itemView.taskId.text = task.id.toString()
         itemView.taskName.text = task.name
         itemView.taskDueDate.text = task.dueDate.toString()

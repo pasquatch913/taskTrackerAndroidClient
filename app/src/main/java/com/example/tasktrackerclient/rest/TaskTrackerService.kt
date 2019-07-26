@@ -31,7 +31,7 @@ interface TaskTrackerService {
 
     companion object {
         operator fun invoke(context: Context): TaskTrackerService {
-            val baseUrl = "http://pasquatch.com/api/"
+            val baseUrl = "https://pasquatch.com/api/"
 
             val context = context
             val PREFERENCES = "myPreferences"

@@ -27,8 +27,8 @@ interface TaskTrackerService {
     @GET("tasks/active")
     fun fetchAllActiveTasks(): Deferred<Response<List<TaskDTO>>>
 
-    @POST("tasks/oneTime/{id}/completions/{value}")
-    fun incrementOneTimeTask(@Path("id") id: Int, @Path("value") value: Int) : Deferred<Response<Void>>
+    @POST("tasks/{id}/completions/{value}")
+    fun incrementTaskCompletions(@Path("id") id: Int, @Path("value") value: Int): Deferred<Response<Void>>
 
     companion object {
         operator fun invoke(context: Context): TaskTrackerService {

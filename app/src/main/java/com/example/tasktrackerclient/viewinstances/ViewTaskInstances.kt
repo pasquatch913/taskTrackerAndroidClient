@@ -60,7 +60,7 @@ class ViewTaskInstances : AppCompatActivity() {
         val service = TaskTrackerService(context)
 
         GlobalScope.launch(Dispatchers.Main) {
-            val response = service.incrementOneTimeTask(data.taskId.text.toString().toInt(), newCompletions).await()
+            val response = service.incrementTaskCompletions(data.taskId.text.toString().toInt(), newCompletions).await()
             println(response)
             if (response.isSuccessful) {
                 println(response.code())

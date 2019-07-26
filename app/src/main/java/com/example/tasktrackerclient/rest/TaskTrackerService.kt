@@ -5,6 +5,7 @@ package com.example.tasktrackerclient.rest
 import android.content.Context
 import com.example.tasktrackerclient.LocalDateAdapter
 import com.example.tasktrackerclient.OneTimeTaskEntity
+import com.example.tasktrackerclient.TaskDTO
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -23,11 +24,11 @@ interface TaskTrackerService {
     @GET("oneTimeTasks")
     fun fetchOneTimeTasks() : Deferred<Response<List<OneTimeTaskEntity>>>
 
-    @POST("tasks/oneTime/{id}/completions/value/{value}")
+    @GET("tasks")
+    fun fetchAllTasks(): Deferred<Response<List<TaskDTO>>>
+
+    @POST("tasks/oneTime/{id}/completions/{value}")
     fun incrementOneTimeTask(@Path("id") id: Int, @Path("value") value: Int) : Deferred<Response<Void>>
-//
-//    @GET("taskInstances")
-//    fun fetchTaskInstances() : Call<TaskInstanceEntity>
 
     companion object {
         operator fun invoke(context: Context): TaskTrackerService {

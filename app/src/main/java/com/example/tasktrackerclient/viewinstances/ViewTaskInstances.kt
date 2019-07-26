@@ -45,7 +45,7 @@ class ViewTaskInstances : AppCompatActivity() {
     fun fetchAllTasks(context: Context) {
         val service = TaskTrackerService(context)
         GlobalScope.launch(Dispatchers.Main) {
-            val response = service.fetchAllTasks().await()
+            val response = service.fetchAllActiveTasks().await()
             runOnUiThread {
                 recyclerView_second.adapter =
                     ViewTaskInstancesAdapter(response.body()!!, context, { view: View -> clickListener(view, context) })

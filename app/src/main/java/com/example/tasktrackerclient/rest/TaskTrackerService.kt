@@ -24,8 +24,8 @@ interface TaskTrackerService {
     @GET("oneTimeTasks")
     fun fetchOneTimeTasks() : Deferred<Response<List<OneTimeTaskEntity>>>
 
-    @GET("tasks")
-    fun fetchAllTasks(): Deferred<Response<List<TaskDTO>>>
+    @GET("tasks/active")
+    fun fetchAllActiveTasks(): Deferred<Response<List<TaskDTO>>>
 
     @POST("tasks/oneTime/{id}/completions/{value}")
     fun incrementOneTimeTask(@Path("id") id: Int, @Path("value") value: Int) : Deferred<Response<Void>>

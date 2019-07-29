@@ -4,7 +4,8 @@ package com.example.tasktrackerclient.rest
 
 import android.content.Context
 import com.example.tasktrackerclient.LocalDateAdapter
-import com.example.tasktrackerclient.OneTimeTaskEntity
+import com.example.tasktrackerclient.OneTimeTaskRequest
+import com.example.tasktrackerclient.SubscriptionRequest
 import com.example.tasktrackerclient.TaskDTO
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -14,6 +15,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -21,14 +23,17 @@ import java.time.LocalDate
 
 interface TaskTrackerService {
 
-    @GET("oneTimeTasks")
-    fun fetchOneTimeTasks() : Deferred<Response<List<OneTimeTaskEntity>>>
-
     @GET("tasks/active")
     fun fetchAllActiveTasks(): Deferred<Response<List<TaskDTO>>>
 
     @POST("tasks/{id}/completions/{value}")
     fun incrementTaskCompletions(@Path("id") id: Int, @Path("value") value: Int): Deferred<Response<Void>>
+
+    @POST("web/subscriptions/newTask")
+    fun newTaskSubscription(@Body request: SubscriptionRequest): Deferred<Response<Void>>
+
+    @POST("web/oneTimes/newTask")
+    fun newOneTimeTask(@Body request: OneTimeTaskRequest): Deferred<Response<Void>>
 
     companion object {
         operator fun invoke(context: Context): TaskTrackerService {

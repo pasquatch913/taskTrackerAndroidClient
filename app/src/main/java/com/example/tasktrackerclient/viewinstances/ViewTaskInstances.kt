@@ -17,9 +17,6 @@ import kotlinx.coroutines.launch
 
 class ViewTaskInstances : AppCompatActivity() {
 
-    var taskInstanceList = listOf<TaskInstanceEntity>()
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_instances)
@@ -27,19 +24,12 @@ class ViewTaskInstances : AppCompatActivity() {
 
         recyclerView_second.layoutManager = LinearLayoutManager(this)
 
-//        fetchTaskInstances(this)
         fetchAllTasks(this)
 
         returnMain.setOnClickListener {
             finish()
         }
     }
-
-//    fun fetchTaskInstances(context: Context){
-//        var taskInstances = taskInstanceList
-//        // put all items from response on list
-//        return taskInstances
-//    }
 
 
     fun fetchAllTasks(context: Context) {

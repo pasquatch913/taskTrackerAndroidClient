@@ -1,10 +1,11 @@
-package com.example.tasktrackerclient
+package com.example.tasktrackerclient.main
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.example.tasktrackerclient.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 

@@ -13,18 +13,18 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
         <activity
-                android:name="com.example.tasktrackerclient.viewsubscriptions.ViewTaskSubscriptions"
-                android:label="@string/title_activity_view_task_subscriptions"
+                android:name="com.example.tasktrackerclient.createTask.CreateTask"
+                android:label="@string/title_activity_create_task"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.ViewTaskSubscriptions"/>
+                <action android:name="android.intent.action.CreateTask"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
                 android:name="com.example.tasktrackerclient.viewinstances.ViewTaskInstances"
-                android:label="@string/title_activity_second"
+                android:label="@string/title_activity_view_instances"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.ViewTaskInstances"/>

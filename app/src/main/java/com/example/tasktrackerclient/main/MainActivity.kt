@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        viewTasksSubscriptions.setOnClickListener {
-            var intent = Intent("android.intent.action.ViewTaskSubscriptions")
+        createTask.setOnClickListener {
+            var intent = Intent("android.intent.action.CreateTask")
             startActivity(intent)
         }
     }

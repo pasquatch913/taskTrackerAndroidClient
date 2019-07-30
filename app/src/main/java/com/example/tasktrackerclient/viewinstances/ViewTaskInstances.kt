@@ -22,7 +22,7 @@ class ViewTaskInstances : AppCompatActivity() {
         setContentView(R.layout.activity_show_instances)
         setSupportActionBar(toolbar)
 
-        recyclerView_second.layoutManager = LinearLayoutManager(this)
+        recyclerView_task_instance_rows.layoutManager = LinearLayoutManager(this)
 
         fetchAllTasks(this)
 
@@ -37,7 +37,7 @@ class ViewTaskInstances : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.Main) {
             val response = service.fetchAllActiveTasks().await()
             runOnUiThread {
-                recyclerView_second.adapter =
+                recyclerView_task_instance_rows.adapter =
                     ViewTaskInstancesAdapter(response.body()!!, context, { view: View -> clickListener(view, context) })
             }
         }

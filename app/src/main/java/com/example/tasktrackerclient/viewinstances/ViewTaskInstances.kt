@@ -38,12 +38,14 @@ class ViewTaskInstances : AppCompatActivity() {
             val response = service.fetchAllActiveTasks().await()
             runOnUiThread {
                 recyclerView_task_instance_rows.adapter =
-                    ViewTaskInstancesAdapter(response.body()!!, context, { view: View -> clickListener(view, context) })
+                    ViewTaskInstancesAdapter(response.body()!!, context,
+                        { view: View -> incrementClickListener(view, context) },
+                        { view: View -> decrementClickListener(view, context) })
             }
         }
     }
 
-    private fun clickListener(view: View, context: Context) {
+    private fun incrementClickListener(view: View, context: Context) {
         val data = view
         val currentCompletions = data.taskCompletions.text
         val newCompletions = (currentCompletions as String).toInt() + 1
@@ -61,6 +63,29 @@ class ViewTaskInstances : AppCompatActivity() {
                 }
             }
             else {
+                println("failed to execute request")
+                println("call: " + response)
+            }
+        }
+    }
+
+    private fun decrementClickListener(view: View, context: Context) {
+        val data = view
+        val currentCompletions = data.taskCompletions.text
+        val newCompletions = (currentCompletions as String).toInt() - 1
+        val service = TaskTrackerService(context)
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = service.incrementTaskCompletions(data.taskId.text.toString().toInt(), newCompletions).await()
+            println(response)
+            if (response.isSuccessful) {
+                println(response.code())
+                if (response.code() == 202) {
+                    runOnUiThread {
+                        view.taskCompletions.text = newCompletions.toString()
+                    }
+                }
+            } else {
                 println("failed to execute request")
                 println("call: " + response)
             }

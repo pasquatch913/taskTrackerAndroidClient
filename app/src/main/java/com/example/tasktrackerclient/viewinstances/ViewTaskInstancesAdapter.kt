@@ -9,7 +9,12 @@ import com.example.tasktrackerclient.R
 import com.example.tasktrackerclient.TaskDTO
 import com.example.tasktrackerclient.rest.CustomViewHolder
 
-class ViewTaskInstancesAdapter(var data: List<TaskDTO>, val context: Context, val clickListener: (View) -> Unit) :
+class ViewTaskInstancesAdapter(
+    var data: List<TaskDTO>,
+    val context: Context,
+    val incrementClickListener: (View) -> Unit,
+    val decrementClickListener: (View) -> Unit
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
@@ -24,7 +29,7 @@ class ViewTaskInstancesAdapter(var data: List<TaskDTO>, val context: Context, va
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as CustomViewHolder).bind(data[position], clickListener)
+        (holder as CustomViewHolder).bind(data[position], incrementClickListener, decrementClickListener)
     }
 
 }

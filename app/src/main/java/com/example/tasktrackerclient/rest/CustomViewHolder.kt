@@ -7,13 +7,14 @@ import kotlinx.android.synthetic.main.task_instance_row.view.*
 
 class CustomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-    fun bind(task: TaskDTO, clickListener: (View) -> Unit) {
+    fun bind(task: TaskDTO, incrementClickListener: (View) -> Unit, decrementClickListener: (View) -> Unit) {
         itemView.taskId.text = task.id.toString()
         itemView.taskName.text = task.name
         itemView.taskDueDate.text = task.dueDate.toString()
         itemView.taskCompletions.text = task.completions.toString()
         itemView.taskPoints.text = task.weight.toString()
 
-        itemView.incrementTask.setOnClickListener { clickListener(itemView) }
+        itemView.incrementTask.setOnClickListener { incrementClickListener(itemView) }
+        itemView.decrementTask.setOnClickListener { decrementClickListener(itemView) }
     }
 }

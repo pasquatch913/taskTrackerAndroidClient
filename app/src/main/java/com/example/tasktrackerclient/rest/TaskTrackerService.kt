@@ -32,7 +32,7 @@ interface TaskTrackerService {
     @POST("tasks")
     fun newTaskSubscription(@Body request: SubscriptionRequest): Deferred<Response<Void>>
 
-    @POST("web/oneTimes/newTask")
+    @POST("oneTimeTask")
     fun newOneTimeTask(@Body request: OneTimeTaskRequest): Deferred<Response<Void>>
 
     companion object {

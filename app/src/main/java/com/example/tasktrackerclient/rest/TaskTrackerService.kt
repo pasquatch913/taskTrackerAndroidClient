@@ -29,7 +29,7 @@ interface TaskTrackerService {
     @POST("tasks/{id}/completions/{value}")
     fun incrementTaskCompletions(@Path("id") id: Int, @Path("value") value: Int): Deferred<Response<Void>>
 
-    @POST("web/subscriptions/newTask")
+    @POST("tasks")
     fun newTaskSubscription(@Body request: SubscriptionRequest): Deferred<Response<Void>>
 
     @POST("web/oneTimes/newTask")

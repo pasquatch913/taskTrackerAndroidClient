@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.DatePicker
 import android.widget.RadioGroup
+import com.example.tasktrackerclient.OneTimeTaskRequest
 import com.example.tasktrackerclient.R
 import com.example.tasktrackerclient.SubscriptionRequest
 import com.example.tasktrackerclient.TaskPeriod
@@ -19,7 +20,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
+
 
 class CreateTask : AppCompatActivity() {
 
@@ -30,41 +34,12 @@ class CreateTask : AppCompatActivity() {
         setContentView(R.layout.activity_create_task)
         setSupportActionBar(toolbar)
 
-        oneTimeTaskDueDate.setText("--/--/----")
+        taskDueDate.setText("--/--/----")
+        taskDueDate!!.setOnFocusChangeListener(showCalendarFocusListener)
+        taskDueDate!!.setOnClickListener(showCalendarClickListener)
 
-        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
-            override fun onDateSet(
-                view: DatePicker, year: Int, monthOfYear: Int,
-                dayOfMonth: Int
-            ) {
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateDateInView()
-            }
-        }
-
-        oneTimeTaskDueDate!!.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(view: View) {
-                DatePickerDialog(
-                    this@CreateTask,
-                    dateSetListener,
-                    // set DatePickerDialog to point to today's date when it loads up
-                    cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH),
-                    cal.get(Calendar.DAY_OF_MONTH)
-                ).show()
-            }
-
-        })
-
-        taskType.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { group: RadioGroup?, checkedId: Int ->
-                showTaskTypeOptions(group, checkedId)
-            })
-
-        createSubscription.setOnClickListener {
-            createSubscriptionClickListener(this)
+        taskType.setOnCheckedChangeListener { group: RadioGroup?, checkedId: Int ->
+            showTaskTypeOptions(group, checkedId)
         }
 
         returnMain.setOnClickListener {
@@ -102,27 +77,103 @@ class CreateTask : AppCompatActivity() {
         }
     }
 
+    private fun createOneTimeTaskClickListener(context: Context) {
+        val service = TaskTrackerService(context)
+
+        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        formatter =
+            formatter.withLocale(Locale.US)  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
+        val date = LocalDate.parse(taskDueDate.text, formatter)
+
+        val request = OneTimeTaskRequest(
+            taskName.text.toString(),
+            weight.text.toString().toInt(),
+            goal.text.toString().toInt(),
+            0,
+            date,
+            true
+        )
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = service.newOneTimeTask(request).await()
+            println(response)
+            if (response.isSuccessful) {
+                println(response.code())
+                finish()
+            } else {
+                println("failed to execute request")
+                println("call: " + response)
+            }
+        }
+    }
+
     private fun showTaskTypeOptions(group: RadioGroup?, checkedId: Int) {
         when (checkedId) {
             taskSubscription.id -> {
-                oneTimeTaskDueDate.visibility = View.GONE
+                createButton.setEnabled(true)
+                createButton.setOnClickListener {
+                    createSubscriptionClickListener(this)
+                }
+                taskDueDate.visibility = View.GONE
                 taskPeriod.visibility = View.VISIBLE
             }
             oneTimeTask.id -> {
+                createButton.setEnabled(true)
+                createButton.setOnClickListener {
+                    createOneTimeTaskClickListener(this)
+                }
                 taskPeriod.visibility = View.GONE
-                oneTimeTaskDueDate.visibility = View.VISIBLE
+                taskDueDate.visibility = View.VISIBLE
             }
             else -> {
+                createButton.setEnabled(false)
                 taskPeriod.visibility = View.GONE
-                oneTimeTaskDueDate.visibility = View.GONE
+                taskDueDate.visibility = View.GONE
             }
         }
     }
 
     private fun updateDateInView() {
-        val myFormat = "MM/dd/yyyy" // mention the format you need
+        val myFormat = "yyyy-MM-dd" // mention the format you need
         val sdf = SimpleDateFormat(myFormat, Locale.US)
-        oneTimeTaskDueDate!!.setText(sdf.format(cal.time))
+        taskDueDate!!.setText(sdf.format(cal.time))
+    }
+
+    private val showCalendarFocusListener = object : View.OnFocusChangeListener {
+        override fun onFocusChange(view: View, gainFocus: Boolean) {
+            if (gainFocus) {
+                showCalendar()
+            }
+        }
+    }
+
+    private val showCalendarClickListener = object : View.OnClickListener {
+        override fun onClick(view: View) {
+            showCalendar()
+        }
+    }
+
+    private val showCalendar = {
+        DatePickerDialog(
+            this@CreateTask,
+            dateSetListener,
+            // set DatePickerDialog to point to today's date when it loads up
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
+        ).show()
+    }
+
+    private val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+        override fun onDateSet(
+            view: DatePicker, year: Int, monthOfYear: Int,
+            dayOfMonth: Int
+        ) {
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateDateInView()
+        }
     }
 
 }

@@ -9,13 +9,14 @@
         tools:showIn="@layout/activity_show_instances"
         tools:context=".viewinstances.ViewTaskInstances">
     <android.support.v7.widget.RecyclerView
-            android:layout_width="0dp"
-            android:layout_height="485dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="65dp"
+            android:clipToPadding="false"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="8dp"
             android:id="@+id/recyclerView_task_instance_rows" app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.101" app:layout_constraintBottom_toTopOf="@+id/returnMain"/>
+    />
     <Button
             android:text="Return home"
             android:layout_width="wrap_content"

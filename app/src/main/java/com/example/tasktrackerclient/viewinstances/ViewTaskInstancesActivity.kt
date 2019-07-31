@@ -2,12 +2,11 @@ package com.example.tasktrackerclient.viewinstances
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.tasktrackerclient.R
 import com.example.tasktrackerclient.rest.TaskTrackerService
-
 import kotlinx.android.synthetic.main.activity_show_instances.*
 import kotlinx.android.synthetic.main.content_show_instances.*
 import kotlinx.android.synthetic.main.task_instance_row.view.*
@@ -40,7 +39,8 @@ class ViewTaskInstancesActivity : AppCompatActivity() {
                 recyclerView_task_instance_rows.adapter =
                     ViewTaskInstancesAdapter(response.body()!!, context,
                         { view: View -> incrementClickListener(view, context) },
-                        { view: View -> decrementClickListener(view, context) })
+                        { view: View -> decrementClickListener(view, context) },
+                        { view: View -> deactivateTask(view, context) })
             }
         }
     }
@@ -52,7 +52,7 @@ class ViewTaskInstancesActivity : AppCompatActivity() {
         val service = TaskTrackerService(context)
 
         GlobalScope.launch(Dispatchers.Main) {
-            val response = service.incrementTaskCompletions(data.taskId.text.toString().toInt(), newCompletions).await()
+            val response = service.updateTaskCompletions(data.taskId.text.toString().toInt(), newCompletions).await()
             println(response)
             if (response.isSuccessful) {
                 println(response.code())
@@ -76,13 +76,34 @@ class ViewTaskInstancesActivity : AppCompatActivity() {
         val service = TaskTrackerService(context)
 
         GlobalScope.launch(Dispatchers.Main) {
-            val response = service.incrementTaskCompletions(data.taskId.text.toString().toInt(), newCompletions).await()
+            val response = service.updateTaskCompletions(data.taskId.text.toString().toInt(), newCompletions).await()
             println(response)
             if (response.isSuccessful) {
                 println(response.code())
                 if (response.code() == 202) {
                     runOnUiThread {
                         view.taskCompletions.text = newCompletions.toString()
+                    }
+                }
+            } else {
+                println("failed to execute request")
+                println("call: " + response)
+            }
+        }
+    }
+
+    private fun deactivateTask(view: View, context: Context) {
+        val data = view
+        val service = TaskTrackerService(context)
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = service.unsubscribeFromTask(data.taskId.text.toString().toInt()).await()
+            println(response)
+            if (response.isSuccessful) {
+                println(response.code())
+                if (response.code() == 202) {
+                    runOnUiThread {
+                        view.visibility = View.GONE
                     }
                 }
             } else {

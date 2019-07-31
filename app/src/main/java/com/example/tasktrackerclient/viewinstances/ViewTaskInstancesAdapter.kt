@@ -13,7 +13,8 @@ class ViewTaskInstancesAdapter(
     var data: List<TaskDTO>,
     val context: Context,
     val incrementClickListener: (View) -> Unit,
-    val decrementClickListener: (View) -> Unit
+    val decrementClickListener: (View) -> Unit,
+    val deactivateClickListener: (View) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -29,7 +30,12 @@ class ViewTaskInstancesAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as CustomViewHolder).bind(data[position], incrementClickListener, decrementClickListener)
+        (holder as CustomViewHolder).bind(
+            data[position],
+            incrementClickListener,
+            decrementClickListener,
+            deactivateClickListener
+        )
     }
 
 }

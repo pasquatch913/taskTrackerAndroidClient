@@ -7,7 +7,11 @@ import kotlinx.android.synthetic.main.task_instance_row.view.*
 
 class CustomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-    fun bind(task: TaskDTO, incrementClickListener: (View) -> Unit, decrementClickListener: (View) -> Unit) {
+    fun bind(
+        task: TaskDTO, incrementClickListener: (View) -> Unit,
+        decrementClickListener: (View) -> Unit,
+        unsubscribeClickListener: (View) -> Unit
+    ) {
         itemView.taskId.text = task.id.toString()
         itemView.taskName.text = task.name
         itemView.taskDueDate.text = task.dueDate.toString()
@@ -16,6 +20,7 @@ class CustomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         itemView.incrementTask.setOnClickListener { incrementClickListener(itemView) }
         itemView.decrementTask.setOnClickListener { decrementClickListener(itemView) }
+        itemView.unsubscribeTask.setOnClickListener { unsubscribeClickListener(itemView) }
 
         if (task.recurring) {
             itemView.recurringLabel.visibility = View.VISIBLE

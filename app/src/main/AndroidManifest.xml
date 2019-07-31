@@ -17,7 +17,7 @@
                 android:label="@string/title_activity_create_task"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.CreateTask"/>
+                <action android:name="android.intent.action.CreateTaskActivity"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
@@ -37,7 +37,7 @@
                 android:label="@string/title_activity_view_instances"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.ViewTaskInstances"/>
+                <action android:name="android.intent.action.ViewTaskInstancesActivity"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>

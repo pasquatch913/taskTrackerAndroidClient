@@ -20,12 +20,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewTaskInstances.setOnClickListener {
-            var intent = Intent("android.intent.action.ViewTaskInstances")
+            var intent = Intent("android.intent.action.ViewTaskInstancesActivity")
             startActivity(intent)
         }
 
         createTask.setOnClickListener {
-            var intent = Intent("android.intent.action.CreateTask")
+            var intent = Intent("android.intent.action.CreateTaskActivity")
             startActivity(intent)
         }
     }

@@ -13,7 +13,7 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
         <activity
-                android:name="com.example.tasktrackerclient.createTask.CreateTask"
+                android:name="com.example.tasktrackerclient.createTask.CreateTaskActivity"
                 android:label="@string/title_activity_create_task"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="com.example.tasktrackerclient.viewinstances.ViewTaskInstances"
+                android:name="com.example.tasktrackerclient.viewinstances.ViewTaskInstancesActivity"
                 android:label="@string/title_activity_view_instances"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

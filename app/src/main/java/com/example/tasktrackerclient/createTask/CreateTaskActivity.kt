@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class CreateTask : AppCompatActivity() {
+class CreateTaskActivity : AppCompatActivity() {
 
     var cal = Calendar.getInstance()
 
@@ -155,7 +155,7 @@ class CreateTask : AppCompatActivity() {
 
     private val showCalendar = {
         DatePickerDialog(
-            this@CreateTask,
+            this@CreateTaskActivity,
             dateSetListener,
             // set DatePickerDialog to point to today's date when it loads up
             cal.get(Calendar.YEAR),

@@ -23,6 +23,16 @@
             </intent-filter>
         </activity>
         <activity
+                android:name="com.example.tasktrackerclient.login.LoginActivity"
+                android:label="@string/title_activity_login"
+                android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.LoginActivity"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
                 android:name="com.example.tasktrackerclient.viewinstances.ViewTaskInstances"
                 android:label="@string/title_activity_view_instances"
                 android:theme="@style/AppTheme.NoActionBar">

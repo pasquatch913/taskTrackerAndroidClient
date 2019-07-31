@@ -9,5 +9,6 @@ class TaskDTO(
     val completions: Int,
     val weight: Int,
     val dueDate: LocalDate,
-    val active: Boolean
+    val active: Boolean,
+    val recurring: Boolean
 )

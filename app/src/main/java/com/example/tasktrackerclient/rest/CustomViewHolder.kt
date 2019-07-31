@@ -16,5 +16,9 @@ class CustomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         itemView.incrementTask.setOnClickListener { incrementClickListener(itemView) }
         itemView.decrementTask.setOnClickListener { decrementClickListener(itemView) }
+
+        if (task.recurring) {
+            itemView.recurringLabel.visibility = View.VISIBLE
+        }
     }
 }

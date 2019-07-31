@@ -24,6 +24,8 @@ class CustomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         if (task.recurring) {
             itemView.recurringLabel.visibility = View.VISIBLE
+        } else {
+            itemView.recurringLabel.visibility = View.GONE
         }
     }
 }

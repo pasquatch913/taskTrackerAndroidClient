@@ -26,7 +26,7 @@ interface TaskTrackerService {
     @GET("tasks/active")
     fun fetchAllActiveTasks(): Deferred<Response<List<TaskDTO>>>
 
-    @POST("/tasks/{id}/completions/{value}")
+    @POST("tasks/{id}/completions/{value}")
     fun updateTaskCompletions(@Path("id") id: Int, @Path("value") value: Int): Deferred<Response<Void>>
 
     @POST("tasks/complete/{id}")

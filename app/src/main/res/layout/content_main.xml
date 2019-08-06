@@ -9,15 +9,35 @@
         tools:showIn="@layout/activity_main"
         tools:context=".main.MainActivity" android:visibility="visible">
 
+    <TextView
+            android:layout_width="354dp"
+            android:layout_height="55dp"
+            android:id="@+id/homepage_viewTasks_message"
+            android:text="@string/homepage_viewTasks_message"
+            android:gravity="center" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.487"
+            android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/createTask"/>
+    <TextView
+            android:layout_width="354dp"
+            android:layout_height="55dp"
+            android:id="@+id/homepage_createTask_message"
+            android:text="@string/homepage_createTask_message"
+            android:gravity="center" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/loginButton" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"/>
     <Button
             android:text="Login to Account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/loginButton"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginTop="32dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/homepage_login_message" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"/>
 
     <Button
             android:text="Create Task"
@@ -26,18 +46,25 @@
             android:id="@+id/createTask"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/loginButton" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/homepage_createTask_message"/>
     <Button
             android:text="View Task Instances"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/viewTaskInstances"
-            android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/createTask" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/homepage_viewTasks_message"/>
+    <TextView
+            android:layout_width="354dp"
+            android:layout_height="55dp"
+            android:id="@+id/homepage_login_message"
+            android:text="@string/homepage_login_message" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:gravity="center" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

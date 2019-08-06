@@ -4,4 +4,10 @@
     <string name="title_activity_view_instances">View Active Tasks</string>
     <string name="title_activity_create_task">Create Task</string>
     <string name="title_activity_login">Login</string>
+    <string name="welcome_message">Welcome to Task Tracker!</string>
+    <string name="homepage_login_message">Use the following button to enter your credentials! If you don\'t have
+        credentials, visit pasquatch.com using your browser.
+    </string>
+    <string name="homepage_createTask_message">Use the following button to create a new task.</string>
+    <string name="homepage_viewTasks_message">Use the following button to view your upcoming tasks.</string>
 </resources>

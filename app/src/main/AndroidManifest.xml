@@ -52,7 +52,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <receiver android:name=".ExampleAppWidgetProvider">
+        <receiver android:name=".widget.MyAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"></action>
             </intent-filter>
@@ -61,6 +61,9 @@
                     android:resource="@xml/example_appwidget_info"
             ></meta-data>
         </receiver>
+        <service
+                android:name=".widget.WidgetService"
+                android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>

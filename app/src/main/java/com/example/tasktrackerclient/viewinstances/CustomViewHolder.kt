@@ -1,4 +1,4 @@
-package com.example.tasktrackerclient.rest
+package com.example.tasktrackerclient.viewinstances
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

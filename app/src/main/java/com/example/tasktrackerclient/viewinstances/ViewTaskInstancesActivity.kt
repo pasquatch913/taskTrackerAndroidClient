@@ -13,15 +13,21 @@ import com.example.tasktrackerclient.rest.TaskTrackerService
 import kotlinx.android.synthetic.main.activity_show_instances.*
 import kotlinx.android.synthetic.main.content_show_instances.*
 import kotlinx.android.synthetic.main.task_instance_row.view.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
-class ViewTaskInstancesActivity : AppCompatActivity() {
+class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
 
     private var recyclerView: RecyclerView? = null
     private var taskList: List<TaskDTO> = emptyList()
     private var adapter: ViewTaskInstancesAdapter? = null
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +54,8 @@ class ViewTaskInstancesActivity : AppCompatActivity() {
     }
 
 
-    fun fetchAllTasks(context: Context) {
-        GlobalScope.launch(Dispatchers.Main) {
+    private fun fetchAllTasks(context: Context) {
+        launch {
             val restService = TaskTrackerService(context)
             val response = restService.fetchAllActiveTasks().await()
             adapter?.data = response.body()!!
@@ -63,7 +69,7 @@ class ViewTaskInstancesActivity : AppCompatActivity() {
         val newCompletions = (currentCompletions as String).toInt() + 1
         val restService = TaskTrackerService(context)
 
-        GlobalScope.launch(Dispatchers.Main) {
+        launch {
             val response =
                 restService.updateTaskCompletions(data.taskId.text.toString().toInt(), newCompletions).await()
             println(response)
@@ -87,7 +93,7 @@ class ViewTaskInstancesActivity : AppCompatActivity() {
         val newCompletions = (currentCompletions as String).toInt() - 1
         val restService = TaskTrackerService(context)
 
-        GlobalScope.launch(Dispatchers.Main) {
+        launch {
             val response =
                 restService.updateTaskCompletions(data.taskId.text.toString().toInt(), newCompletions).await()
             println(response)
@@ -109,7 +115,7 @@ class ViewTaskInstancesActivity : AppCompatActivity() {
         val data = view
         val restService = TaskTrackerService(context)
 
-        GlobalScope.launch(Dispatchers.Main) {
+        launch {
             val response = restService.unsubscribeFromTask(data.taskId.text.toString().toInt()).await()
             println(response)
             if (response.isSuccessful) {

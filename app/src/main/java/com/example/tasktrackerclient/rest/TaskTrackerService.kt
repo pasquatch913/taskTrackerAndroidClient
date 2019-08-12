@@ -12,6 +12,7 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import kotlinx.coroutines.Deferred
 import okhttp3.Credentials
 import okhttp3.OkHttpClient
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,6 +23,9 @@ import retrofit2.http.Path
 import java.time.LocalDate
 
 interface TaskTrackerService {
+
+    @GET("tasks/active")
+    fun syncFetchAllActiveTasks(): Call<Response<List<TaskDTO>>>
 
     @GET("tasks/active")
     fun fetchAllActiveTasks(): Deferred<Response<List<TaskDTO>>>

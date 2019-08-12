@@ -10,4 +10,17 @@
     </string>
     <string name="homepage_createTask_message">Use the following button to create a new task.</string>
     <string name="homepage_viewTasks_message">Use the following button to view your upcoming tasks.</string>
+
+
+    <!-- Heading for the app widget ID panel. -->
+    <string name="widget_id_label">Widget ID</string>
+
+    <!-- Heading for the updated panel. -->
+    <string name="widget_update_label">Last updated</string>
+
+    <!-- Button label for the update button. -->
+    <string name="widget_button_update">Update now</string>
+
+    <!-- Format string for the date & count text view -->
+    <string name="date_count_format">%1$d @%2$s</string>
 </resources>

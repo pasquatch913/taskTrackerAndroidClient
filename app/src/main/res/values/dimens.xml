@@ -1,3 +1,9 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Widgets before API 14 required a margin. After API 14 the margin is
+built in. Devices previous to API 14 use this file (and this value.) Devices
+that use API 14 or higher use the dimension from res/values-14/dimens.xml
+-->
+    <dimen name="widget_margin">8dp</dimen>
 </resources>

@@ -37,4 +37,9 @@ class ViewTaskInstancesAdapter(
         )
     }
 
+    fun removeTaskFromView(id: Int) {
+        data = data.filter { i -> i.id != id }
+        notifyDataSetChanged()
+    }
+
 }

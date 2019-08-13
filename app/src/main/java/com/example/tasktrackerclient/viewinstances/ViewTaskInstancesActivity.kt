@@ -114,11 +114,13 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
     private fun deactivateTask(view: View, context: Context) {
         val data = view
         val restService = TaskTrackerService(context)
+        val rowId = data.taskId.text.toString().toInt()
 
         launch {
-            val response = restService.unsubscribeFromTask(data.taskId.text.toString().toInt()).await()
+            val response = restService.unsubscribeFromTask(rowId).await()
             println(response)
             if (response.isSuccessful) {
+                adapter?.removeTaskFromView(rowId)
                 println(response.code())
                 if (response.code() == 202) {
                     runOnUiThread {

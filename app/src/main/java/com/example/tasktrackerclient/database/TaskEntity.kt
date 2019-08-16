@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.time.LocalDate
 
 @Entity(tableName = "task_table")
-data class TaskEntity (
+data class TaskEntity(
     @PrimaryKey(autoGenerate = true)
     val localId: Int,
     val remoteId: Int,
@@ -16,4 +16,4 @@ data class TaskEntity (
     val dueDate: LocalDate,
     val active: Boolean,
     val recurring: Boolean
-    )
+)

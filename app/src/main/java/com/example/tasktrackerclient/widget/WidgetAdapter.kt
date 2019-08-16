@@ -1,15 +1,15 @@
 package com.example.tasktrackerclient.widget
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.tasktrackerclient.R
 import kotlinx.android.synthetic.main.widget_row.view.*
 
-class WidgetAdapter(private val data: ArrayList<String>) : RecyclerView.Adapter<WidgetAdapter.MyViewHolder>() {
+class WidgetAdapter(private val data: ArrayList<String>) :
+    androidx.recyclerview.widget.RecyclerView.Adapter<WidgetAdapter.MyViewHolder>() {
 
-    class MyViewHolder(val itemview: View) : RecyclerView.ViewHolder(itemview)
+    class MyViewHolder(val itemview: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemview)
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(

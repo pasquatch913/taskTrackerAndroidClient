@@ -1,7 +1,6 @@
 package com.example.tasktrackerclient.viewinstances
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ class ViewTaskInstancesAdapter(
     val decrementClickListener: (View) -> Unit,
     val deactivateClickListener: (View) -> Unit
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
 
 
     override fun getItemCount(): Int {
@@ -28,7 +27,7 @@ class ViewTaskInstancesAdapter(
         return CustomViewHolder(cellForRow)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         (holder as CustomViewHolder).bind(
             data[position],
             incrementClickListener,

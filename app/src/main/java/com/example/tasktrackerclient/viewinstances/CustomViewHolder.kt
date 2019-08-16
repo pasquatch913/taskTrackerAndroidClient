@@ -1,11 +1,10 @@
 package com.example.tasktrackerclient.viewinstances
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.example.tasktrackerclient.TaskDTO
 import kotlinx.android.synthetic.main.task_instance_row.view.*
 
-class CustomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class CustomViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
     fun bind(
         task: TaskDTO, incrementClickListener: (View) -> Unit,

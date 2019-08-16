@@ -2,11 +2,9 @@ package com.example.tasktrackerclient.viewinstances
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tasktrackerclient.R
 import com.example.tasktrackerclient.TaskDTO
 import com.example.tasktrackerclient.rest.TaskTrackerService
@@ -21,7 +19,7 @@ import kotlin.coroutines.CoroutineContext
 
 class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
 
-    private var recyclerView: RecyclerView? = null
+    private var recyclerView: androidx.recyclerview.widget.RecyclerView? = null
     private var taskList: List<TaskDTO> = emptyList()
     private var adapter: ViewTaskInstancesAdapter? = null
     private var job: Job = Job()
@@ -37,9 +35,15 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
 
         fetchAllTasks(this)
 
-        recyclerView_task_instance_rows.layoutManager = LinearLayoutManager(applicationContext)
+        recyclerView_task_instance_rows.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(applicationContext)
 
-        recyclerView!!.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+        recyclerView!!.addItemDecoration(
+            androidx.recyclerview.widget.DividerItemDecoration(
+                this,
+                androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
+            )
+        )
 
         adapter = ViewTaskInstancesAdapter(taskList, this,
             { view: View -> incrementClickListener(view, this) },

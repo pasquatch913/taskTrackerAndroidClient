@@ -9,10 +9,10 @@ import org.mapstruct.Mappings
 interface TaskMapper {
 
     @Mapping(source = "id", target = "remoteId")
-    fun taskDtoToTaskEntity(taskDTO: TaskDTO) : TaskEntity
+    fun taskDtoToTaskEntity(taskDTO: TaskDTO): TaskEntity
 
     @Mappings(
         Mapping(source = "remoteId", target = "id")
     )
-    fun taskEntityToTaskDTO(taskEntity: TaskEntity) : TaskDTO
+    fun taskEntityToTaskDTO(taskEntity: TaskEntity): TaskDTO
 }

@@ -10,7 +10,7 @@ import com.example.tasktrackerclient.TaskDTO
 interface TaskDatabaseDao {
 
     @Insert
-    fun insert(task:TaskDTO)
+    fun insert(task: TaskDTO)
 
     // update method must update task values only
     @Update

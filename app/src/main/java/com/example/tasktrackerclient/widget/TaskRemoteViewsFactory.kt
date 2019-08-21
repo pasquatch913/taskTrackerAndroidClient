@@ -28,10 +28,12 @@ class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteVi
     override fun getViewAt(position: Int): RemoteViews {
         val rv = RemoteViews(context.packageName, R.layout.widget_row)
 
+        if (array.isEmpty()) populateCursor()
+
         // configure generic click intent
-        var genericExtras = Bundle()
+        val genericExtras = Bundle()
         genericExtras.putInt("CLICK_TYPE", 0)
-        var genericClickIntent = Intent()
+        val genericClickIntent = Intent()
         genericClickIntent.putExtras(genericExtras)
         // hacky and doesn't cover full row space
         rv.setOnClickFillInIntent(R.id.widgetTaskName, genericClickIntent)
@@ -40,14 +42,13 @@ class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteVi
         rv.setOnClickFillInIntent(R.id.widgetTaskDueDate, genericClickIntent)
 
         // configure increment button click
-        var incrementExtras = Bundle()
+        val incrementExtras = Bundle()
         incrementExtras.putInt("CLICK_TYPE", 1)
-        var incrementClickIntent = Intent()
+        incrementExtras.putInt("CLICKED_ID", array[position].id)
+        incrementExtras.putInt("CLICKED_COMPLETIONS", array[position].completions)
+        val incrementClickIntent = Intent()
         incrementClickIntent.putExtras(incrementExtras)
         rv.setOnClickFillInIntent(R.id.widgetIncrementTaskButton, incrementClickIntent)
-
-
-        if (array.isEmpty()) populateCursor()
 
         rv.setTextViewText(R.id.widgetTaskName, array[position].name)
         rv.setTextViewText(R.id.widgetTaskCompletions, array[position].completions.toString())

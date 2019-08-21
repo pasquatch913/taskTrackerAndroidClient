@@ -1,6 +1,8 @@
 package com.example.tasktrackerclient.widget
 
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.widget.RemoteViews
@@ -10,6 +12,9 @@ import com.example.tasktrackerclient.database.DbHelper
 import com.example.tasktrackerclient.database.DbHelper.Companion.TABLE_NAME
 import com.example.tasktrackerclient.database.TaskEntity
 import com.example.tasktrackerclient.database.TaskMapper
+import com.example.tasktrackerclient.viewinstances.ViewTaskInstancesActivity
+
+import  com.example.tasktrackerclient.widget.TaskWidgetProvider.Companion.EXTRA_ITEM_POSITION
 
 class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteViewsFactory {
 
@@ -26,12 +31,17 @@ class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteVi
     override fun getViewAt(position: Int): RemoteViews {
         val rv = RemoteViews(context.packageName, R.layout.widget_row)
 
+        var openActivityIntent = Intent(context, ViewTaskInstancesActivity::class.java)
+        var openActivityPendingIntent = PendingIntent.getActivity(context, 0, openActivityIntent, 0)
+        rv.setOnClickFillInIntent(R.id.listRowMain, openActivityIntent)
+
         if (array.isEmpty()) populateCursor()
 
         rv.setTextViewText(R.id.widgetTaskName, array[position].name)
         rv.setTextViewText(R.id.widgetTaskCompletions, array[position].completions.toString())
         rv.setTextViewText(R.id.widgetTaskCompletionsGoal, array[position].completionsGoal.toString())
         rv.setTextViewText(R.id.widgetTaskDueDate, array[position].dueDate.toString())
+//        rv.setOnClickFillInIntent(R.id.widgetIncrementTask, openTaskListIntent)
         return rv
     }
 

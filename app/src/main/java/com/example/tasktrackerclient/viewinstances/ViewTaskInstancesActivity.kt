@@ -11,13 +11,14 @@ import com.example.tasktrackerclient.R
 import com.example.tasktrackerclient.TaskDTO
 import com.example.tasktrackerclient.database.TaskMapper
 import com.example.tasktrackerclient.database.TaskProvider
+//import com.example.tasktrackerclient.database.TaskProvider
 import com.example.tasktrackerclient.rest.TaskTrackerService
+import kotlinx.android.synthetic.main.content_show_instances.*
 import kotlinx.android.synthetic.main.task_instance_row.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.mapstruct.factory.Mappers
 import kotlin.coroutines.CoroutineContext
 
 class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
@@ -27,7 +28,7 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
     private var adapter: ViewTaskInstancesAdapter? = null
     private var job: Job = Job()
     private var provider = TaskProvider()
-    private val mapper = Mappers.getMapper(TaskMapper::class.java)
+    private val mapper = TaskMapper()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -35,7 +36,7 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_instances)
-        setSupportActionBar(toolbar)
+//        setSupportActionBar(toolbar)
         recyclerView = findViewById(R.id.recyclerView_task_instance_rows)
 
         fetchAllTasks(this)
@@ -72,9 +73,9 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
             adapter?.data = response.body()!!
             adapter?.notifyDataSetChanged()
             val array = arrayOfNulls<ContentValues>(response.body()!!.size)
-            responseList.map(mapper::taskDtoToTaskEntity)
-                .map(mapper::taskEntityToContentValues)
-            val uri = Uri.parse(TaskProvider.URL)
+//            responseList.map(mapper::taskDtoToTaskEntity)
+//                .map(mapper::taskEntityToContentValues)
+//            val uri = Uri.parse(TaskProvider.URL)
 
 //            provider.bulkInsert(uri, mapper.taskEntityToContentValues(array))
         }

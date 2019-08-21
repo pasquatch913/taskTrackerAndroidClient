@@ -6,18 +6,16 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import androidx.room.Room
-import org.mapstruct.factory.Mappers
-
-private const val DBNAME = "task-cache"
 
 class TaskProvider : ContentProvider() {
+
+    val mapper = TaskMapper()
 
     companion object {
         val PROVIDER_NAME = "com.pasquatch.TaskTrackerAndroidClient.TaskProvider"
         val URL = "content://$PROVIDER_NAME/task_table"
         val CONTENT_URI = Uri.parse(URL)
         val MATCHER: UriMatcher? = null
-        val mapper = Mappers.getMapper(TaskMapper::class.java)
     }
 
     init {
@@ -30,7 +28,7 @@ class TaskProvider : ContentProvider() {
     private var taskDao: TaskDatabaseDao? = null
 
     override fun onCreate(): Boolean {
-        taskDatabase = Room.databaseBuilder(context, TaskDatabase::class.java, DBNAME).build()
+        taskDatabase = Room.databaseBuilder(context, TaskDatabase::class.java, "task-cache").build()
         taskDao = taskDatabase.taskDao
 
         return true

@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <!--<permission android:name="com.example.tasktrackerclient.database.READ_WRITE"/>-->
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -47,6 +49,7 @@
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -54,12 +57,12 @@
         </activity>
         <receiver android:name=".widget.MyAppWidgetProvider">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"></action>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
             <meta-data
                     android:name="android.appwidget.provider"
                     android:resource="@xml/example_appwidget_info"
-            ></meta-data>
+            />
         </receiver>
         <service
                 android:name=".widget.WidgetService"
@@ -76,6 +79,13 @@
                     android:name="android.appwidget.provider"
                     android:resource="@xml/new_app_widget_info"/>
         </receiver>
+
+        <provider
+                android:permission="${applicationId}.PROVIDER"
+                android:process=":provider"
+                android:authorities="${applicationId}.provider"
+                android:name=".database.TaskProvider"/>
+        <!--android:permission="com.example.tasktrackerclient.database.READ_WRITE"/>-->
     </application>
 
 </manifest>

@@ -8,10 +8,16 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context, "${TABLE_NAME}.db",
 
     companion object {
         const val TABLE_NAME = "Tasks"
-        const val TABLE_VERSION = 1
+        const val TABLE_VERSION = 2
 
         const val COLUMN_ID = "id"
         const val COLUMN_NAME = "name"
+        const val COLUMN_COMP_GOAL = "completions_goal"
+        const val COLUMN_COMPS = "completions"
+        const val COLUMN_WEIGHT = "weight"
+        const val COLUMN_DUE_DATE = "due_date"
+        const val COLUMN_ACTIVE = "active"
+        const val COLUMN_RECURRING = "recurring"
     }
 
     private var db: SQLiteDatabase? = null
@@ -19,7 +25,13 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context, "${TABLE_NAME}.db",
     override fun onCreate(db: SQLiteDatabase) {
         val sql = "CREATE TABLE $TABLE_NAME (" +
                 "$COLUMN_ID INTEGER PRIMARY KEY, " +
-                "$COLUMN_NAME TEXT);"
+                "$COLUMN_NAME TEXT," +
+                "$COLUMN_COMP_GOAL INTEGER," +
+                "$COLUMN_COMPS INTEGER," +
+                "$COLUMN_WEIGHT INTEGER," +
+                "$COLUMN_DUE_DATE TEXT," +
+                "$COLUMN_ACTIVE TEXT," +
+                "$COLUMN_RECURRING TEXT);"
         db.execSQL(sql)
     }
 
@@ -36,6 +48,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context, "${TABLE_NAME}.db",
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        //ignore
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME)
+        onCreate(db)
     }
 }

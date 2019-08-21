@@ -18,25 +18,30 @@ class TaskMapper {
 //            taskEntity.dueDate, taskEntity.active, taskEntity.recurring)
 //    }
 
-//    fun contentValuesToTaskEntity(contentValues: ContentValues) : TaskEntity {
-//        return TaskEntity(contentValues.getAsInteger("id"),
-//            contentValues.getAsString("name"))
-////            contentValues.getAsInteger("completions_goal"),
-////            contentValues.getAsInteger("completions"),
-////            contentValues.getAsInteger("weight"),
-////            LocalDate.parse(contentValues.getAsString("due_date")),
-////            contentValues.getAsBoolean("active"),
-////            contentValues.getAsBoolean("recurring"))
-//    }
+    fun cursorToTaskEntity(cursor: Cursor): TaskEntity {
+        return TaskEntity(
+            cursor?.getInt(cursor.getColumnIndex(DbHelper.COLUMN_ID)),
+            cursor?.getString(cursor.getColumnIndex(DbHelper.COLUMN_NAME)),
+            cursor?.getInt(cursor.getColumnIndex(DbHelper.COLUMN_COMP_GOAL)),
+            cursor?.getInt(cursor.getColumnIndex(DbHelper.COLUMN_COMPS)),
+            cursor?.getInt(cursor.getColumnIndex(DbHelper.COLUMN_WEIGHT)),
+            LocalDate.parse(cursor?.getString(cursor.getColumnIndex(DbHelper.COLUMN_DUE_DATE))),
+            cursor?.getString(cursor.getColumnIndex(DbHelper.COLUMN_ACTIVE)) == "True",
+            cursor?.getString(cursor.getColumnIndex(DbHelper.COLUMN_RECURRING)) == "True"
+        )
+    }
 
-//    fun taskEntityToContentValues
-
-
-//
-//    @Mapping(source = "id", target = "remoteId")
-//    fun contentValuesToTaskEntity(values: ContentValues): TaskEntity
-//
-//    //    might also need mapper from entity to content values???
-//    @Mapping(source = "id", target = "remoteId")
-//    fun taskEntityToContentValues(task: TaskEntity): ContentValues
+    fun taskEntityToContentValues(taskEntity: TaskEntity): ContentValues {
+        val values = ContentValues()
+        values.put(DbHelper.COLUMN_ID, taskEntity.id)
+        values.put(DbHelper.COLUMN_NAME, taskEntity.name)
+        values.put(DbHelper.COLUMN_COMP_GOAL, taskEntity.completionsGoal)
+        values.put(DbHelper.COLUMN_COMPS, taskEntity.completions)
+        values.put(DbHelper.COLUMN_WEIGHT, taskEntity.weight)
+        values.put(DbHelper.COLUMN_DUE_DATE, taskEntity.dueDate.toString())
+        values.put(DbHelper.COLUMN_ACTIVE, taskEntity.active.toString())
+        values.put(DbHelper.COLUMN_RECURRING, taskEntity.recurring.toString())
+        Log.d("inserter", "task ID ${taskEntity.id} and name ${taskEntity.name} inserted")
+        return values
+    }
 }

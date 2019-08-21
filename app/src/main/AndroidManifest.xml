@@ -55,21 +55,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <receiver android:name=".widget.MyAppWidgetProvider">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-            </intent-filter>
-            <meta-data
-                    android:name="android.appwidget.provider"
-                    android:resource="@xml/example_appwidget_info"
-            />
-        </receiver>
+
         <service
-                android:name=".widget.WidgetService"
+                android:name=".widget.thirdStab.TaskWidgetService"
                 android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
-
-        <receiver android:name=".widget.NewAppWidget">
+        <receiver android:name=".widget.thirdStab.TaskWidgetProvider">
             <intent-filter>
                 <action android:name=
                                 "android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -77,7 +68,7 @@
 
             <meta-data
                     android:name="android.appwidget.provider"
-                    android:resource="@xml/new_app_widget_info"/>
+                    android:resource="@xml/example_appwidget_info"/>
         </receiver>
 
         <provider

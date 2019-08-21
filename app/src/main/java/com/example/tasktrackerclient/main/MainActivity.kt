@@ -42,13 +42,12 @@ class MainActivity : AppCompatActivity() {
             "$COLUMN_ID DESC")
 
         if (mCursor?.moveToFirst() as Boolean) {
-            (0..mCursor.count).forEach {
+            (0 until mCursor.count).forEach {
                 Log.d("reader",
                     "reading id ${mCursor?.getInt(mCursor.getColumnIndex(COLUMN_ID))}" +
                             " and name ${mCursor?.getString(mCursor.getColumnIndex(COLUMN_NAME))}")
                 mCursor.moveToNext()
             }
-
         }
 
 

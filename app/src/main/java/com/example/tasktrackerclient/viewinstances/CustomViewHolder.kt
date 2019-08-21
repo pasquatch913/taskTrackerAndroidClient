@@ -15,7 +15,7 @@ class CustomViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerVi
         itemView.taskName.text = task.name
         itemView.taskDueDate.text = task.dueDate.toString()
         itemView.taskCompletions.text = task.completions.toString()
-        itemView.taskPoints.text = task.weight.toString()
+        itemView.taskCompletionsGoal.text = task.completionsGoal.toString()
 
         itemView.incrementTask.setOnClickListener { incrementClickListener(itemView) }
         itemView.decrementTask.setOnClickListener { decrementClickListener(itemView) }

@@ -23,7 +23,7 @@
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/taskPoints"
+            android:id="@+id/taskCompletionsGoal"
             app:layout_constraintStart_toEndOf="@+id/completionsGoalLabel"
             android:layout_marginStart="8dp"
             app:layout_constraintTop_toTopOf="@+id/completionsGoalLabel"/>

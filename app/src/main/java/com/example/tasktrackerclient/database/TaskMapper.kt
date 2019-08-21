@@ -2,9 +2,9 @@ package com.example.tasktrackerclient.database
 
 import android.content.ContentValues
 import android.database.Cursor
-import android.provider.BaseColumns
 import android.util.Log
 import com.example.tasktrackerclient.TaskDTO
+import com.example.tasktrackerclient.rest.TaskInstanceResponse
 import java.time.LocalDate
 
 class TaskMapper {
@@ -14,10 +14,16 @@ class TaskMapper {
             taskDTO.dueDate, taskDTO.active, taskDTO.recurring)
     }
 
-//    fun taskEntityToTaskDTO(taskEntity: TaskEntity) : TaskDTO {
-//        return TaskDTO(taskEntity.id, taskEntity.name, taskEntity.completionsGoal, taskEntity.completions, taskEntity.weight,
-//            taskEntity.dueDate, taskEntity.active, taskEntity.recurring)
-//    }
+    fun taskInstanceResponseToTaskDto(res: TaskInstanceResponse) : TaskDTO {
+        return TaskDTO(res.id,
+            res.name,
+            res.necessaryCompletions,
+            res.completions,
+            res.weight,
+            res.dueDate,
+            res.active,
+            res.recurring)
+    }
 
     fun cursorToTaskEntity(cursor: Cursor): TaskEntity {
         return TaskEntity(

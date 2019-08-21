@@ -30,6 +30,8 @@ class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteVi
 
         rv.setTextViewText(R.id.widgetTaskName, array[position].name)
         rv.setTextViewText(R.id.widgetTaskCompletions, array[position].completions.toString())
+        rv.setTextViewText(R.id.widgetTaskCompletionsGoal, array[position].completionsGoal.toString())
+        rv.setTextViewText(R.id.widgetTaskDueDate, array[position].dueDate.toString())
         return rv
     }
 

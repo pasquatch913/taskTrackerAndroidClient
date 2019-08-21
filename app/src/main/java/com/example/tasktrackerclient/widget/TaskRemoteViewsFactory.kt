@@ -9,11 +9,13 @@ import com.example.tasktrackerclient.R
 import com.example.tasktrackerclient.database.DbHelper
 import com.example.tasktrackerclient.database.DbHelper.Companion.TABLE_NAME
 import com.example.tasktrackerclient.database.TaskEntity
+import com.example.tasktrackerclient.database.TaskMapper
 
 class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteViewsFactory {
 
     val uri: Uri
     val array = ArrayList<TaskEntity>()
+    val mapper = TaskMapper()
 
     init {
         uri = Uri.parse("content://${context.applicationInfo?.packageName}.provider/$TABLE_NAME")
@@ -27,6 +29,7 @@ class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteVi
         if (array.isEmpty()) populateCursor()
 
         rv.setTextViewText(R.id.widgetTaskName, array[position].name)
+        rv.setTextViewText(R.id.widgetTaskCompletions, array[position].completions.toString())
         return rv
     }
 
@@ -60,10 +63,7 @@ class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteVi
 
         if (mCursor?.moveToFirst() as Boolean) {
             (0 until mCursor.count).forEach {
-                array.add(TaskEntity(
-                    mCursor?.getInt(mCursor.getColumnIndex(DbHelper.COLUMN_ID)),
-                    mCursor?.getString(mCursor.getColumnIndex(DbHelper.COLUMN_NAME))
-                ))
+                array.add(mapper.cursorToTaskEntity(mCursor))
                 Log.d("reader",
                     "reading id ${mCursor?.getInt(mCursor.getColumnIndex(DbHelper.COLUMN_ID))}" +
                             " and name ${mCursor?.getString(mCursor.getColumnIndex(DbHelper.COLUMN_NAME))}")

@@ -74,13 +74,8 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
 
             val uri = Uri.parse("content://${applicationInfo.packageName}.provider/${DbHelper.TABLE_NAME}")
             responseList.map(mapper::taskDtoToTaskEntity)
-                .forEach {
-                    val values = ContentValues()
-                    values.put(DbHelper.COLUMN_ID, it.id)
-                    values.put(DbHelper.COLUMN_NAME, it.name)
-                    Log.d("inserter", "task ID ${it.id} and name ${it.name} inserted")
-                    contentResolver.insert(uri, values)
-                }
+                .map(mapper::taskEntityToContentValues)
+                .map { n -> contentResolver.insert(uri, n) }
         }
     }
 

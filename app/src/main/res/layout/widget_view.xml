@@ -3,12 +3,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="#564d80">
+
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <TextView
+                android:text="Task Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/widgetTaskNameLabel"
+                android:textColor="#d3fcd5"
+        />
+        <TextView
+                android:text="Task Completions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/widgetTaskCompletionsLabel"
+                android:textColor="#d3fcd5"
+        />
+    </LinearLayout>
 
     <ListView
             android:id="@+id/widgetCollectionList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:dividerHeight="4dp"
+            android:divider="#98a6d4"
             tools:listitem="@layout/widget_row">
     </ListView>
 </LinearLayout>

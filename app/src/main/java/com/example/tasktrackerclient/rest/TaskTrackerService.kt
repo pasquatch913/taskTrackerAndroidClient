@@ -25,10 +25,7 @@ import java.time.LocalDate
 interface TaskTrackerService {
 
     @GET("tasks/active")
-    fun syncFetchAllActiveTasks(): Call<Response<List<TaskDTO>>>
-
-    @GET("tasks/active")
-    fun fetchAllActiveTasks(): Deferred<Response<List<TaskDTO>>>
+    fun fetchAllActiveTasks(): Deferred<Response<List<TaskInstanceResponse>>>
 
     @POST("tasks/{id}/completions/{value}")
     fun updateTaskCompletions(@Path("id") id: Int, @Path("value") value: Int): Deferred<Response<Void>>

@@ -27,7 +27,6 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
     private var taskList: List<TaskDTO> = emptyList()
     private var adapter: ViewTaskInstancesAdapter? = null
     private var job: Job = Job()
-    private var provider = TaskProvider_Room()
     private val mapper = TaskMapper()
 
     override val coroutineContext: CoroutineContext
@@ -68,8 +67,9 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
             val restService = TaskTrackerService(context)
             val response = restService.fetchAllActiveTasks().await()
             val responseList = ArrayList<TaskDTO>()
-            responseList.addAll(response.body()!!)
-            adapter?.data = response.body()!!
+            response.body()!!.map(mapper::taskInstanceResponseToTaskDto)
+                .map(responseList::add)
+            adapter?.data = responseList
             adapter?.notifyDataSetChanged()
 
             val uri = Uri.parse("content://${applicationInfo.packageName}.provider/${DbHelper.TABLE_NAME}")

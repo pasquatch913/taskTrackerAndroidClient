@@ -1,37 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="#564d80">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#564d80"
+    android:orientation="vertical">
 
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <TextView
-                android:text="Task Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/widgetTaskNameLabel"
-                android:textColor="#d3fcd5"
-        />
+            android:id="@+id/widgetTaskNameLabel"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:text="Task Name"
+            android:textColor="#d3fcd5" />
+
         <TextView
-                android:text="Task Completions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/widgetTaskCompletionsLabel"
-                android:textColor="#d3fcd5"
-        />
+            android:id="@+id/widgetTaskCompletionsLabel"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingStart="8dp"
+            android:text="Comps"
+            android:textColor="#d3fcd5" />
+
+        <TextView
+            android:id="@+id/widgetTaskCompletionsGoalLabel"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingStart="8dp"
+            android:text="Goal"
+            android:textColor="#d3fcd5" />
+
+        <TextView
+            android:id="@+id/widgetTaskDueDateLabel"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingStart="8dp"
+            android:text="Due"
+            android:textColor="#d3fcd5" />
     </LinearLayout>
 
     <ListView
-            android:id="@+id/widgetCollectionList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dividerHeight="4dp"
-            android:divider="#98a6d4"
-            tools:listitem="@layout/widget_row">
-    </ListView>
+        android:id="@+id/widgetCollectionList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#98a6d4"
+        android:dividerHeight="4dp"
+        tools:listitem="@layout/widget_row"/>
 </LinearLayout>
 

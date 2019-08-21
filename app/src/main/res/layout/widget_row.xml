@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/widgetTaskName" android:layout_marginTop="8dp"
-            android:layout_marginStart="24dp" android:ellipsize="end" android:minLines="1"/>
-
-</RelativeLayout>
+            android:id="@+id/widgetTaskName"
+            android:paddingStart="16dp"
+            android:ellipsize="end" android:minLines="1"
+            android:layout_alignParentStart="true"
+            android:textColor="#d3fcd5"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:id="@+id/widgetTaskCompletions"
+            android:textColor="#d3fcd5"/>
+</LinearLayout>

@@ -11,7 +11,6 @@ import com.example.tasktrackerclient.R
 import com.example.tasktrackerclient.TaskDTO
 import com.example.tasktrackerclient.database.DbHelper
 import com.example.tasktrackerclient.database.TaskMapper
-import com.example.tasktrackerclient.database.TaskProvider_Room
 import com.example.tasktrackerclient.rest.TaskTrackerService
 import kotlinx.android.synthetic.main.content_show_instances.*
 import kotlinx.android.synthetic.main.task_instance_row.view.*

@@ -4,14 +4,14 @@ import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tasktrackerclient.R
 import com.example.tasktrackerclient.TaskDTO
+import com.example.tasktrackerclient.database.DbHelper
 import com.example.tasktrackerclient.database.TaskMapper
-import com.example.tasktrackerclient.database.TaskProvider
-//import com.example.tasktrackerclient.database.TaskProvider
+import com.example.tasktrackerclient.database.TaskProvider_Room
 import com.example.tasktrackerclient.rest.TaskTrackerService
 import kotlinx.android.synthetic.main.content_show_instances.*
 import kotlinx.android.synthetic.main.task_instance_row.view.*
@@ -27,7 +27,7 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
     private var taskList: List<TaskDTO> = emptyList()
     private var adapter: ViewTaskInstancesAdapter? = null
     private var job: Job = Job()
-    private var provider = TaskProvider()
+    private var provider = TaskProvider_Room()
     private val mapper = TaskMapper()
 
     override val coroutineContext: CoroutineContext
@@ -36,7 +36,6 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_instances)
-//        setSupportActionBar(toolbar)
         recyclerView = findViewById(R.id.recyclerView_task_instance_rows)
 
         fetchAllTasks(this)
@@ -72,12 +71,16 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
             responseList.addAll(response.body()!!)
             adapter?.data = response.body()!!
             adapter?.notifyDataSetChanged()
-            val array = arrayOfNulls<ContentValues>(response.body()!!.size)
-//            responseList.map(mapper::taskDtoToTaskEntity)
-//                .map(mapper::taskEntityToContentValues)
-//            val uri = Uri.parse(TaskProvider.URL)
 
-//            provider.bulkInsert(uri, mapper.taskEntityToContentValues(array))
+            val uri = Uri.parse("content://${applicationInfo.packageName}.provider/${DbHelper.TABLE_NAME}")
+            responseList.map(mapper::taskDtoToTaskEntity)
+                .forEach {
+                    val values = ContentValues()
+                    values.put(DbHelper.COLUMN_ID, it.id)
+                    values.put(DbHelper.COLUMN_NAME, it.name)
+                    Log.d("inserter", "task ID ${it.id} and name ${it.name} inserted")
+                    contentResolver.insert(uri, values)
+                }
         }
     }
 

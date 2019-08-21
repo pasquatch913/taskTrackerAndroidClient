@@ -1,9 +1,9 @@
 package com.example.tasktrackerclient.widget
 
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
@@ -12,9 +12,6 @@ import com.example.tasktrackerclient.database.DbHelper
 import com.example.tasktrackerclient.database.DbHelper.Companion.TABLE_NAME
 import com.example.tasktrackerclient.database.TaskEntity
 import com.example.tasktrackerclient.database.TaskMapper
-import com.example.tasktrackerclient.viewinstances.ViewTaskInstancesActivity
-
-import  com.example.tasktrackerclient.widget.TaskWidgetProvider.Companion.EXTRA_ITEM_POSITION
 
 class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteViewsFactory {
 
@@ -31,9 +28,24 @@ class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteVi
     override fun getViewAt(position: Int): RemoteViews {
         val rv = RemoteViews(context.packageName, R.layout.widget_row)
 
-        var openActivityIntent = Intent(context, ViewTaskInstancesActivity::class.java)
-        var openActivityPendingIntent = PendingIntent.getActivity(context, 0, openActivityIntent, 0)
-        rv.setOnClickFillInIntent(R.id.listRowMain, openActivityIntent)
+        // configure generic click intent
+        var genericExtras = Bundle()
+        genericExtras.putInt("CLICK_TYPE", 0)
+        var genericClickIntent = Intent()
+        genericClickIntent.putExtras(genericExtras)
+        // hacky and doesn't cover full row space
+        rv.setOnClickFillInIntent(R.id.widgetTaskName, genericClickIntent)
+        rv.setOnClickFillInIntent(R.id.widgetTaskCompletions, genericClickIntent)
+        rv.setOnClickFillInIntent(R.id.widgetTaskCompletionsGoal, genericClickIntent)
+        rv.setOnClickFillInIntent(R.id.widgetTaskDueDate, genericClickIntent)
+
+        // configure increment button click
+        var incrementExtras = Bundle()
+        incrementExtras.putInt("CLICK_TYPE", 1)
+        var incrementClickIntent = Intent()
+        incrementClickIntent.putExtras(incrementExtras)
+        rv.setOnClickFillInIntent(R.id.widgetIncrementTaskButton, incrementClickIntent)
+
 
         if (array.isEmpty()) populateCursor()
 
@@ -41,7 +53,6 @@ class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteVi
         rv.setTextViewText(R.id.widgetTaskCompletions, array[position].completions.toString())
         rv.setTextViewText(R.id.widgetTaskCompletionsGoal, array[position].completionsGoal.toString())
         rv.setTextViewText(R.id.widgetTaskDueDate, array[position].dueDate.toString())
-//        rv.setOnClickFillInIntent(R.id.widgetIncrementTask, openTaskListIntent)
         return rv
     }
 

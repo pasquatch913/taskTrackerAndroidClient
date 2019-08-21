@@ -64,7 +64,8 @@
             <intent-filter>
                 <action android:name=
                                 "android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name=".widget.TaskWidgetProvider.CLICK_APPWIDGET"/>
+                <!--<action android:name=".widget.TaskWidgetProvider.CLICK_APPWIDGET"/>-->
+                <action android:name="com.example.tasktrackerclient.widget.click"/>
             </intent-filter>
 
             <meta-data

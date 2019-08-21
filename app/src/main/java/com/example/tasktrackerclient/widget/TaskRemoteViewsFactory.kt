@@ -1,4 +1,4 @@
-package com.example.tasktrackerclient.widget.thirdStab
+package com.example.tasktrackerclient.widget
 
 import android.content.Context
 import android.net.Uri

@@ -46,6 +46,15 @@
             android:paddingStart="8dp"
             android:text="Due"
             android:textColor="#d3fcd5" />
+
+        <TextView
+            android:id="@+id/widgetIncrementTaskLabel"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingStart="8dp"
+            android:text="+1 Comps"
+            android:textColor="#d3fcd5" />
     </LinearLayout>
 
     <ListView

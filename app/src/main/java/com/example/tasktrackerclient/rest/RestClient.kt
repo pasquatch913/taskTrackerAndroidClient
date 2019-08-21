@@ -6,13 +6,11 @@ import android.content.Context
 import com.example.tasktrackerclient.LocalDateAdapter
 import com.example.tasktrackerclient.OneTimeTaskRequest
 import com.example.tasktrackerclient.SubscriptionRequest
-import com.example.tasktrackerclient.TaskDTO
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Credentials
 import okhttp3.OkHttpClient
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,7 +20,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import java.time.LocalDate
 
-interface TaskTrackerService {
+interface RestClient {
 
     @GET("tasks/active")
     fun fetchAllActiveTasks(): Deferred<Response<List<TaskInstanceResponse>>>
@@ -40,7 +38,7 @@ interface TaskTrackerService {
     fun newOneTimeTask(@Body request: OneTimeTaskRequest): Deferred<Response<Void>>
 
     companion object {
-        operator fun invoke(context: Context): TaskTrackerService {
+        operator fun invoke(context: Context): RestClient {
             val baseUrl = "https://pasquatch.com/api/"
 
             val context = context
@@ -66,7 +64,7 @@ interface TaskTrackerService {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .build().create(TaskTrackerService::class.java)
+                .build().create(RestClient::class.java)
         }
     }
 }

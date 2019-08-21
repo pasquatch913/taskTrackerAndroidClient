@@ -9,7 +9,7 @@ import com.example.tasktrackerclient.R
 import com.example.tasktrackerclient.TaskDTO
 import com.example.tasktrackerclient.database.DbHelper
 import com.example.tasktrackerclient.database.TaskMapper
-import com.example.tasktrackerclient.rest.TaskTrackerService
+import com.example.tasktrackerclient.rest.RestClient
 import kotlinx.android.synthetic.main.content_show_instances.*
 import kotlinx.android.synthetic.main.task_instance_row.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -61,7 +61,7 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
 
     private fun fetchAllTasks(context: Context) {
         launch {
-            val restService = TaskTrackerService(context)
+            val restService = RestClient(context)
             val response = restService.fetchAllActiveTasks().await()
             val responseList = ArrayList<TaskDTO>()
             response.body()!!.map(mapper::taskInstanceResponseToTaskDto)
@@ -80,7 +80,7 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
         val data = view
         val currentCompletions = data.taskCompletions.text
         val newCompletions = (currentCompletions as String).toInt() + 1
-        val restService = TaskTrackerService(context)
+        val restService = RestClient(context)
 
         launch {
             val response =
@@ -104,7 +104,7 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
         val data = view
         val currentCompletions = data.taskCompletions.text
         val newCompletions = (currentCompletions as String).toInt() - 1
-        val restService = TaskTrackerService(context)
+        val restService = RestClient(context)
 
         launch {
             val response =
@@ -126,7 +126,7 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
 
     private fun deactivateTask(view: View, context: Context) {
         val data = view
-        val restService = TaskTrackerService(context)
+        val restService = RestClient(context)
         val rowId = data.taskId.text.toString().toInt()
 
         launch {

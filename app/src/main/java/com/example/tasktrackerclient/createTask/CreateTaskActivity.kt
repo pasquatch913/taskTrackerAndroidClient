@@ -4,15 +4,15 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.icu.util.Calendar
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.DatePicker
 import android.widget.RadioGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.example.tasktrackerclient.OneTimeTaskRequest
 import com.example.tasktrackerclient.R
 import com.example.tasktrackerclient.SubscriptionRequest
 import com.example.tasktrackerclient.TaskPeriod
-import com.example.tasktrackerclient.rest.TaskTrackerService
+import com.example.tasktrackerclient.rest.RestClient
 import kotlinx.android.synthetic.main.activity_show_instances.*
 import kotlinx.android.synthetic.main.content_create_task.*
 import kotlinx.android.synthetic.main.content_show_instances.returnMain
@@ -48,7 +48,7 @@ class CreateTaskActivity : AppCompatActivity() {
     }
 
     private fun createSubscriptionClickListener(context: Context) {
-        val service = TaskTrackerService(context)
+        val service = RestClient(context)
 
         val period = when (taskPeriod.checkedRadioButtonId) {
             daily.id -> TaskPeriod.DAILY
@@ -78,7 +78,7 @@ class CreateTaskActivity : AppCompatActivity() {
     }
 
     private fun createOneTimeTaskClickListener(context: Context) {
-        val service = TaskTrackerService(context)
+        val service = RestClient(context)
 
         var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         formatter =

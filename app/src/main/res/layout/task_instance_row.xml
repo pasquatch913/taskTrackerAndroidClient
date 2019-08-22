@@ -1,93 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/taskName" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp" android:ellipsize="end" android:minLines="1"/>
+        android:id="@+id/taskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:minLines="1"
+        android:text="TextView"
+        android:textColor="@color/colorText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/taskDueDate"
-            app:layout_constraintTop_toTopOf="@+id/taskDueDateLabel" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"/>
+        android:id="@+id/taskDueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        android:textColor="@color/colorText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/taskDueDateLabel" />
+
     <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/taskCompletionsGoal"
-            app:layout_constraintStart_toEndOf="@+id/completionsGoalLabel"
-            android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="@+id/completionsGoalLabel"/>
+        android:id="@+id/taskCompletionsGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        android:textColor="@color/colorText"
+        app:layout_constraintStart_toEndOf="@+id/completionsGoalLabel"
+        app:layout_constraintTop_toTopOf="@+id/completionsGoalLabel" />
+
     <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="21dp"
-            android:id="@+id/taskCompletions"
-            app:layout_constraintTop_toTopOf="@+id/completionsLabel"
-            app:layout_constraintStart_toEndOf="@+id/completionsLabel" android:layout_marginStart="8dp"/>
+        android:id="@+id/taskCompletions"
+        android:textColor="@color/colorText"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/completionsLabel"
+        app:layout_constraintTop_toTopOf="@+id/completionsLabel" />
+
     <Button
-            android:text="+1 Completion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/incrementTask"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/completionsGoalLabel"/>
+        android:id="@+id/incrementTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="+1 Completion"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completionsGoalLabel"
+        android:background="@color/colorSecondary"
+        android:textColor="@color/colorText"/>
+
     <Button
-            android:text="-1 Completion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/decrementTask"
-            app:layout_constraintTop_toTopOf="@+id/incrementTask"
-            app:layout_constraintStart_toEndOf="@+id/incrementTask" android:layout_marginStart="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        android:id="@+id/decrementTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="-1 Completion"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintStart_toEndOf="@+id/incrementTask"
+        app:layout_constraintTop_toTopOf="@+id/incrementTask"
+        android:background="@color/colorSecondary"
+        android:textColor="@color/colorText"/>
+
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/taskId"
-            android:visibility="invisible" tools:layout_editor_absoluteY="99dp" tools:layout_editor_absoluteX="206dp"/>
+        android:id="@+id/taskId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="206dp"
+        tools:layout_editor_absoluteY="99dp" />
+
     <TextView
-            android:text="Completions goal:"
-            android:layout_width="81dp"
-            android:layout_height="38dp"
-            android:id="@+id/completionsGoalLabel" app:layout_constraintStart_toStartOf="@+id/taskName"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/taskName"/>
+        android:id="@+id/completionsGoalLabel"
+        android:layout_width="81dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
+        android:text="Completions goal:"
+        android:textColor="@color/colorText"
+        app:layout_constraintStart_toStartOf="@+id/taskName"
+        app:layout_constraintTop_toBottomOf="@+id/taskName" />
+
     <Button
-            android:text="Deactivate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/unsubscribeTask"
-            app:layout_constraintTop_toTopOf="@+id/incrementTask"
-            app:layout_constraintStart_toEndOf="@+id/decrementTask"
-            app:layout_constraintEnd_toEndOf="parent" android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        android:id="@+id/unsubscribeTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deactivate"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/decrementTask"
+        app:layout_constraintTop_toTopOf="@+id/incrementTask"
+        android:background="@color/colorSecondary"
+        android:textColor="@color/colorText"/>
+
     <TextView
-            android:text="Due date:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/taskDueDateLabel"
-            app:layout_constraintTop_toTopOf="@+id/taskName"
-            app:layout_constraintEnd_toStartOf="@+id/taskDueDate" android:layout_marginEnd="8dp"/>
+        android:id="@+id/taskDueDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Due date:"
+        android:textColor="@color/colorText"
+        app:layout_constraintEnd_toStartOf="@+id/taskDueDate"
+        app:layout_constraintTop_toTopOf="@+id/taskName" />
+
     <TextView
-            android:text="Completions:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/completionsLabel" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/taskDueDateLabel"
-            app:layout_constraintStart_toStartOf="@+id/taskDueDateLabel"/>
+        android:id="@+id/completionsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Completions:"
+        android:textColor="@color/colorText"
+        app:layout_constraintStart_toStartOf="@+id/taskDueDateLabel"
+        app:layout_constraintTop_toBottomOf="@+id/taskDueDateLabel" />
+
     <TextView
-            android:text="(Recurring task)"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/recurringLabel" app:layout_constraintStart_toEndOf="@+id/taskName"
-            android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="@+id/taskName" android:visibility="gone"/>
+        android:id="@+id/recurringLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="(Recurring task)"
+        android:textColor="@color/colorText"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/taskName"
+        app:layout_constraintTop_toTopOf="@+id/taskName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

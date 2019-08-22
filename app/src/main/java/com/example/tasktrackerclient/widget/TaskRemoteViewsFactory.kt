@@ -83,7 +83,7 @@ class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteVi
             null,
             null,
             null,
-            "${DbHelper.COLUMN_ID} DESC")
+            "${DbHelper.COLUMN_DUE_DATE} ASC, ${DbHelper.COLUMN_WEIGHT} DESC")
 
         if (mCursor?.moveToFirst() as Boolean) {
             (0 until mCursor.count).forEach {

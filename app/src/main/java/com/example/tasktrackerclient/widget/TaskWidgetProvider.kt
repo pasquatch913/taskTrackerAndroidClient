@@ -65,9 +65,7 @@ class TaskWidgetProvider : AppWidgetProvider(), CoroutineScope {
         val updatedTask = intent.getIntExtra("CLICKED_ID", -1)
         val updatedCompletions = 1 + intent.getIntExtra("CLICKED_COMPLETIONS", -1)
 
-        restService.updateTaskCompletions(updatedTask, updatedCompletions)
-        // notify data set changed?
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetCollectionList)
+        restService.updateTaskCompletions(updatedTask, updatedCompletions, appWidgetManager, appWidgetIds)
     }
 
     private fun handleOpenActivityClick(context: Context?) {

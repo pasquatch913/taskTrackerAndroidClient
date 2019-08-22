@@ -76,6 +76,7 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
+    // can move to rest service but need to resolve the callback handling
     private fun incrementClickListener(view: View, context: Context) {
         val data = view
         val currentCompletions = data.taskCompletions.text

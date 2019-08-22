@@ -1,8 +1,10 @@
 package com.example.tasktrackerclient.rest
 
+import android.appwidget.AppWidgetManager
 import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
+import com.example.tasktrackerclient.R
 import com.example.tasktrackerclient.database.DbHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +22,8 @@ class RestService (val context: Context) : CoroutineScope {
 
     val uri = Uri.parse("content://com.example.tasktrackerclient.provider/${DbHelper.TABLE_NAME}")
 
-    fun updateTaskCompletions(taskId: Int, newCompletions: Int) {
+    // success should be handled with callback to allow more wide usage
+    fun updateTaskCompletions(taskId: Int, newCompletions: Int, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         launch {
             val response =
                 webRequestService.updateTaskCompletions(taskId, newCompletions).await()
@@ -32,6 +35,8 @@ class RestService (val context: Context) : CoroutineScope {
                 val newValue = ContentValues()
                 newValue.put(DbHelper.COLUMN_COMPS, newCompletions)
                 context.contentResolver.update(uri, newValue, whereClause, whereArgs)
+                //notify that dataset is changed
+                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetCollectionList)
             } else {
                 println("failed to execute request")
                 println("call: " + response)

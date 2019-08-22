@@ -4,13 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
-    <!--<permission android:name="com.example.tasktrackerclient.database.READ_WRITE"/>-->
-
     <application
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
@@ -64,7 +60,6 @@
             <intent-filter>
                 <action android:name=
                                 "android.appwidget.action.APPWIDGET_UPDATE"/>
-                <!--<action android:name=".widget.TaskWidgetProvider.CLICK_APPWIDGET"/>-->
                 <action android:name="com.example.tasktrackerclient.widget.click"/>
             </intent-filter>
 
@@ -78,7 +73,6 @@
                 android:process=":provider"
                 android:authorities="${applicationId}.provider"
                 android:name=".database.TaskProvider"/>
-        <!--android:permission="com.example.tasktrackerclient.database.READ_WRITE"/>-->
     </application>
 
 </manifest>

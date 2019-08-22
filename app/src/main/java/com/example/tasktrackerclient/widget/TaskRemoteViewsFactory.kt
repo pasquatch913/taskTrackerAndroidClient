@@ -12,6 +12,7 @@ import com.example.tasktrackerclient.database.DbHelper
 import com.example.tasktrackerclient.database.DbHelper.Companion.TABLE_NAME
 import com.example.tasktrackerclient.database.TaskEntity
 import com.example.tasktrackerclient.database.TaskMapper
+import java.time.LocalDate
 
 class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteViewsFactory {
 
@@ -60,12 +61,14 @@ class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteVi
     override fun getViewTypeCount() = 1
 
     override fun onCreate() {
+        clearOldTasks()
         populateCursor()
     }
 
     override fun getItemId(position: Int) = position.toLong()
 
     override fun onDataSetChanged() {
+        clearOldTasks()
         populateCursor()
     }
 
@@ -77,7 +80,7 @@ class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteVi
         array.clear()
     }
 
-    fun populateCursor() {
+    private fun populateCursor() {
         array.clear()
         val mCursor = context.contentResolver.query(uri,
             null,
@@ -96,5 +99,12 @@ class TaskRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteVi
 
         }
         mCursor.close()
+    }
+
+    private fun clearOldTasks() {
+        val whereClause = "datetime(${DbHelper.COLUMN_DUE_DATE}) < datetime(?)"
+        val whereArgs = arrayOf(LocalDate.now().toString())
+        val deletedCount = context.contentResolver.delete(uri, whereClause, whereArgs)
+        Log.d("deletedCount", deletedCount.toString())
     }
 }

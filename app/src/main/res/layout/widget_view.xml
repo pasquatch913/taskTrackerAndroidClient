@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#564d80"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
     android:id="@+id/widgetMain">
 
@@ -21,7 +21,7 @@
             android:layout_marginStart="16dp"
             android:text="Task Name"
             android:clickable="false"
-            android:textColor="#d3fcd5" />
+            android:textColor="@color/colorText" />
 
         <TextView
             android:id="@+id/widgetTaskCompletionsLabel"
@@ -30,7 +30,7 @@
             android:maxLines="1"
             android:text="Comps"
             android:clickable="false"
-            android:textColor="#d3fcd5" />
+            android:textColor="@color/colorText" />
 
         <TextView
             android:id="@+id/widgetTaskCompletionsGoalLabel"
@@ -40,7 +40,7 @@
             android:layout_marginStart="8dp"
             android:text="Goal"
             android:clickable="false"
-            android:textColor="#d3fcd5" />
+            android:textColor="@color/colorText" />
 
         <TextView
             android:id="@+id/widgetTaskDueDateLabel"
@@ -50,7 +50,7 @@
             android:layout_marginStart="12dp"
             android:text="Due"
             android:clickable="false"
-            android:textColor="#d3fcd5" />
+            android:textColor="@color/colorText" />
 
         <TextView
             android:id="@+id/widgetIncrementTaskLabel"
@@ -60,14 +60,14 @@
             android:layout_marginStart="24dp"
             android:text="+1 Comps"
             android:clickable="false"
-            android:textColor="#d3fcd5" />
+            android:textColor="@color/colorText" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/widgetCollectionList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="#98a6d4"
+        android:divider="@color/colorSecondary"
         android:dividerHeight="2dp"
         tools:listitem="@layout/widget_row"/>
 </LinearLayout>

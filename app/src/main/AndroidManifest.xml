@@ -1,78 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.tasktrackerclient">
+    package="com.example.tasktrackerclient">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:allowBackup="true"
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name="com.example.tasktrackerclient.createTask.CreateTaskActivity"
+            android:label="@string/title_activity_create_task"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.CreateTaskActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.tasktrackerclient.login.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.LoginActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.tasktrackerclient.viewinstances.ViewTaskInstancesActivity"
+            android:label="@string/title_activity_view_instances"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.ViewTaskInstancesActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.tasktrackerclient.main.MainActivity"
             android:label="@string/app_name"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            android:usesCleartextTraffic="true">
-        <activity
-                android:name="com.example.tasktrackerclient.createTask.CreateTaskActivity"
-                android:label="@string/title_activity_create_task"
-                android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.CreateTaskActivity"/>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        <activity
-                android:name="com.example.tasktrackerclient.login.LoginActivity"
-                android:label="@string/title_activity_login"
-                android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.LoginActivity"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        <activity
-                android:name="com.example.tasktrackerclient.viewinstances.ViewTaskInstancesActivity"
-                android:label="@string/title_activity_view_instances"
-                android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.ViewTaskInstancesActivity"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        <activity
-                android:name="com.example.tasktrackerclient.main.MainActivity"
-                android:label="@string/app_name"
-                android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <service
-                android:name=".widget.TaskWidgetService"
-                android:permission="android.permission.BIND_REMOTEVIEWS"/>
+            android:name=".widget.TaskWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver android:name=".widget.TaskWidgetProvider">
             <intent-filter>
-                <action android:name=
-                                "android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="com.example.tasktrackerclient.widget.click"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.example.tasktrackerclient.widget.click" />
+                <action android:name="com.example.tasktrackerclient.widget.refresh" />
             </intent-filter>
 
             <meta-data
-                    android:name="android.appwidget.provider"
-                    android:resource="@xml/appwidget_info"/>
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_info" />
         </receiver>
 
         <provider
-                android:permission="${applicationId}.PROVIDER"
-                android:process=":provider"
-                android:authorities="${applicationId}.provider"
-                android:name=".database.TaskProvider"/>
+            android:name=".database.TaskProvider"
+            android:authorities="${applicationId}.provider"
+            android:permission="${applicationId}.PROVIDER"
+            android:process=":provider" />
     </application>
 
 </manifest>

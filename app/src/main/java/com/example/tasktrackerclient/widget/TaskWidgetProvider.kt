@@ -1,15 +1,15 @@
 package com.example.tasktrackerclient.widget
 
+import android.app.AlarmManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import android.util.Log
 import android.widget.RemoteViews
 import com.example.tasktrackerclient.R
-import com.example.tasktrackerclient.database.DbHelper
 import com.example.tasktrackerclient.rest.RestService
 import com.example.tasktrackerclient.viewinstances.ViewTaskInstancesActivity
 import kotlinx.coroutines.CoroutineScope
@@ -24,14 +24,15 @@ class TaskWidgetProvider : AppWidgetProvider(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    val uri = Uri.parse("content://com.example.tasktrackerclient.provider/${DbHelper.TABLE_NAME}")
-
     companion object {
         val ACTION_CLICK = "com.example.tasktrackerclient.widget.click"
+        val PERIODIC_REFRESH = "com.example.tasktrackerclient.widget.refresh"
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
         super.onReceive(context, intent)
+
+        Log.d("receiver", "intent received")
 
         val name = ComponentName(context, TaskWidgetProvider::class.java)
         val appWidgetIds: IntArray = AppWidgetManager.getInstance(context).getAppWidgetIds(name)
@@ -52,6 +53,11 @@ class TaskWidgetProvider : AppWidgetProvider(), CoroutineScope {
             ) {
                 handleIncrementCompletionsClick(context, intent, appWidgetManager, appWidgetIds)
             }
+        }
+
+        if (intent?.action == PERIODIC_REFRESH) {
+            val restService = RestService(context!!)
+            restService.updateAllTasks(appWidgetManager, appWidgetIds)
         }
     }
 
@@ -94,6 +100,19 @@ class TaskWidgetProvider : AppWidgetProvider(), CoroutineScope {
         rvWidget.setOnClickPendingIntent(R.id.widgetMain, openActivityPendingIntent)
 
         appWidgetManager?.updateAppWidget(appWidgetIds, rvWidget)
+
+        backgroundUpdater(context)
+
         super.onUpdate(context, appWidgetManager, appWidgetIds)
+    }
+
+    private fun backgroundUpdater(context: Context?) {
+        val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, TaskWidgetProvider::class.java)
+        intent.action = PERIODIC_REFRESH
+        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+
+//      set recurring alarm with minimum values allowed by Android
+        alarmManager.setRepeating(AlarmManager.RTC, 5000, 60000, pendingIntent)
     }
 }

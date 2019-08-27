@@ -1,6 +1,7 @@
 package com.example.tasktrackerclient.viewinstances
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -10,6 +11,8 @@ import com.example.tasktrackerclient.TaskDTO
 import com.example.tasktrackerclient.database.DbHelper
 import com.example.tasktrackerclient.database.TaskMapper
 import com.example.tasktrackerclient.rest.RestClient
+import com.example.tasktrackerclient.widget.TaskWidgetProvider
+import com.example.tasktrackerclient.widget.TaskWidgetProvider.Companion.PERIODIC_REFRESH
 import kotlinx.android.synthetic.main.content_show_instances.*
 import kotlinx.android.synthetic.main.task_instance_row.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -93,6 +96,7 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
                     runOnUiThread {
                         view.taskCompletions.text = newCompletions.toString()
                     }
+                    triggerWidgetRefresh(context)
                 }
             } else {
                 println("failed to execute request")
@@ -117,6 +121,7 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
                     runOnUiThread {
                         view.taskCompletions.text = newCompletions.toString()
                     }
+                    triggerWidgetRefresh(context)
                 }
             } else {
                 println("failed to execute request")
@@ -140,12 +145,19 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
                     runOnUiThread {
                         view.visibility = View.GONE
                     }
+                    triggerWidgetRefresh(context)
                 }
             } else {
                 println("failed to execute request")
                 println("call: " + response)
             }
         }
+    }
+
+    private fun triggerWidgetRefresh(context: Context) {
+        val intent = Intent(context, TaskWidgetProvider::class.java)
+        intent.action = PERIODIC_REFRESH
+        sendBroadcast(intent)
     }
 
 }

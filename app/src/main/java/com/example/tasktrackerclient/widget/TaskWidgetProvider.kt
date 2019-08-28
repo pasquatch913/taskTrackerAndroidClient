@@ -49,7 +49,7 @@ class TaskWidgetProvider : AppWidgetProvider(), CoroutineScope {
             // don't ever try to update a task if there was a problem getting data for it
             if (clickType == 1
                 && intent.getIntExtra("CLICKED_ID", -1) != -1
-                && intent.getIntExtra("CLICKED_COMPLETIONS", -1) != -1
+                && intent.getIntExtra("CLICKED_COMPLETIONS", -999) != -1
             ) {
                 handleIncrementCompletionsClick(context, intent, appWidgetManager, appWidgetIds)
             }

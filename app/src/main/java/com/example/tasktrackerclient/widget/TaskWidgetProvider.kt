@@ -49,7 +49,7 @@ class TaskWidgetProvider : AppWidgetProvider(), CoroutineScope {
             // don't ever try to update a task if there was a problem getting data for it
             if (clickType == 1
                 && intent.getIntExtra("CLICKED_ID", -1) != -1
-                && intent.getIntExtra("CLICKED_COMPLETIONS", -999) != -1
+                && intent.getIntExtra("CLICKED_COMPLETIONS", -999) != -999
             ) {
                 handleIncrementCompletionsClick(context, intent, appWidgetManager, appWidgetIds)
             }
@@ -69,7 +69,7 @@ class TaskWidgetProvider : AppWidgetProvider(), CoroutineScope {
     ) {
         val restService = RestService(context!!)
         val updatedTask = intent.getIntExtra("CLICKED_ID", -1)
-        val updatedCompletions = 1 + intent.getIntExtra("CLICKED_COMPLETIONS", -1)
+        val updatedCompletions = 1 + intent.getIntExtra("CLICKED_COMPLETIONS", -999)
 
         restService.updateTaskCompletions(updatedTask, updatedCompletions, appWidgetManager, appWidgetIds)
     }

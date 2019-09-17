@@ -71,7 +71,7 @@ class TaskWidgetProvider : AppWidgetProvider(), CoroutineScope {
         val updatedTask = intent.getIntExtra("CLICKED_ID", -1)
         val updatedCompletions = 1 + intent.getIntExtra("CLICKED_COMPLETIONS", -999)
 
-        restService.updateTaskCompletions(updatedTask, updatedCompletions, appWidgetManager, appWidgetIds)
+        restService.incrementTaskCompletions(updatedTask, updatedCompletions, appWidgetManager, appWidgetIds)
     }
 
     private fun handleOpenActivityClick(context: Context?) {

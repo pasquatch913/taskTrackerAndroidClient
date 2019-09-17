@@ -25,10 +25,13 @@ interface RestClient {
     @GET("tasks/active")
     fun fetchAllActiveTasks(): Deferred<Response<List<TaskInstanceResponse>>>
 
-    @POST("tasks/{id}/completions/{value}")
-    fun updateTaskCompletions(@Path("id") id: Int, @Path("value") value: Int): Deferred<Response<Void>>
-
     @POST("tasks/complete/{id}")
+    fun incrementTaskCompletions(@Path("id") id: Int): Deferred<Response<Void>>
+
+    @POST("tasks/uncomplete/{id}")
+    fun decrementTaskCompletions(@Path("id") id: Int): Deferred<Response<Void>>
+
+    @POST("tasks/deactivate/{id}")
     fun unsubscribeFromTask(@Path("id") id: Int): Deferred<Response<Void>>
 
     @POST("tasks")

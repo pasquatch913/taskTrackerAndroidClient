@@ -29,7 +29,7 @@ class RestService(val context: Context) : CoroutineScope {
     val uri = Uri.parse("content://com.example.tasktrackerclient.provider/${DbHelper.TABLE_NAME}")
 
     // success should be handled with callback to allow more wide usage
-    fun updateTaskCompletions(
+    fun incrementTaskCompletions(
         taskId: Int,
         newCompletions: Int,
         appWidgetManager: AppWidgetManager,
@@ -38,7 +38,37 @@ class RestService(val context: Context) : CoroutineScope {
         launch {
             try {
                 val response =
-                    webRequestService.updateTaskCompletions(taskId, newCompletions).await()
+                    webRequestService.incrementTaskCompletions(taskId).await()
+                println(response)
+                if (response.isSuccessful) {
+                    println(response.code())
+                    val whereClause = "${DbHelper.COLUMN_ID} = ?"
+                    val whereArgs = arrayOf(taskId.toString())
+                    val newValue = ContentValues()
+                    newValue.put(DbHelper.COLUMN_COMPS, newCompletions)
+                    context.contentResolver.update(uri, newValue, whereClause, whereArgs)
+                    //notify that dataset is changed
+                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetCollectionList)
+                } else {
+                    println("failed to execute request")
+                    println("call: " + response)
+                }
+            } catch (ex: SocketTimeoutException) {
+                Log.d("RestService", "request to update remote server timed out after 10s!")
+            }
+        }
+    }
+
+    fun decrementTaskCompletions(
+        taskId: Int,
+        newCompletions: Int,
+        appWidgetManager: AppWidgetManager,
+        appWidgetIds: IntArray
+    ) {
+        launch {
+            try {
+                val response =
+                    webRequestService.decrementTaskCompletions(taskId).await()
                 println(response)
                 if (response.isSuccessful) {
                     println(response.code())

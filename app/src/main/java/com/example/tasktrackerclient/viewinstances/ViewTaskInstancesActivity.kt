@@ -88,7 +88,7 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
 
         launch {
             val response =
-                restService.updateTaskCompletions(data.taskId.text.toString().toInt(), newCompletions).await()
+                restService.incrementTaskCompletions(data.taskId.text.toString().toInt()).await()
             println(response)
             if (response.isSuccessful) {
                 println(response.code())
@@ -113,7 +113,7 @@ class ViewTaskInstancesActivity : AppCompatActivity(), CoroutineScope {
 
         launch {
             val response =
-                restService.updateTaskCompletions(data.taskId.text.toString().toInt(), newCompletions).await()
+                restService.decrementTaskCompletions(data.taskId.text.toString().toInt()).await()
             println(response)
             if (response.isSuccessful) {
                 println(response.code())

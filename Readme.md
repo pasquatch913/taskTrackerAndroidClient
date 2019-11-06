@@ -9,7 +9,7 @@ The Android app is currently in a "usable" state as I've created a home screen a
 
 Here's what the homescreen widget looks like today:
 
-![Task Tracker homescreen widget](http://url/to/img.pnghttp://i.imgur.com/K1lAJbw.jpg)
+![Task Tracker homescreen widget](https://i.imgur.com/K1lAJbw.jpg)
 
 # Future development goals
 
